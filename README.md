@@ -31,7 +31,7 @@ enterprise.html       EN license & enterprise page
 404.html              bilingual not-found page
 zh-cn/                Chinese mirror of the three pages above
 assets/style.css      the whole design system (~300 lines, auto dark mode)
-assets/favicon.svg    the banyan mark
+assets/avatar.png       the project avatar — favicon and brand mark
 assets/architecture.png  vendored from docs/architecture.png in the main repo
 robots.txt, sitemap.xml
 ```
