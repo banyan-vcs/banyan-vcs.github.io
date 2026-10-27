@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>banyan — git 兼容的版本控制服务端</title>
+<meta name="description" content="Banyan 是 git 兼容的版本控制服务端：客户端始终是真正的 git，服务端则为大仓重塑——目录锚定时间线、分布式 pack 存储、有界内存服务。">
+<meta property="og:title" content="banyan — git 兼容的版本控制服务端">
+<meta property="og:description" content="独木成林——每个目录都有自己的时间线。以 git 协议为边界的版本控制服务端。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://banyan-vcs.github.io/zh-cn/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="../assets/favicon.svg" alt="">banyan</a>
+    <nav class="main">
+      <a href="#why">为什么</a>
+      <a href="#features">能力</a>
+      <a href="#numbers">数字</a>
+      <a href="#quickstart">快速开始</a>
+      <a href="docs.html">文档</a>
+      <a href="enterprise.html">企业版</a>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+    </nav>
+    <span class="lang"><a href="../" lang="en">EN</a><b>中文</b></span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">git 兼容的版本控制服务端</span>
+      <h1>独木成林，<br>每个目录都有自己的时间线。</h1>
+      <p class="tagline">One tree, a forest of timelines.</p>
+      <p class="lede">
+        Banyan 以 git 协议为边界——客户端始终是真正的 git；边界之后全部重塑：
+        每个目录拥有自己的提交历史，pack 存储横向扩展到多个节点，
+        服务路径在恒定的小内存窗口内运行——多 GB 的大仓也一样。
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#quickstart">快速开始</a>
+        <a class="btn ghost" href="https://github.com/banyan-vcs/banyan">GitHub 源码</a>
+      </div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 360 320" width="360" height="320" role="img"
+           aria-label="榕树意象：主干与垂入地面的气生根">
+        <g fill="none" stroke-linecap="round">
+          <path d="M40 96 C 70 40, 140 16, 190 20 C 250 25, 306 58, 320 108"
+                stroke="#2d6a4f" stroke-width="5" opacity="0.55"/>
+          <path d="M60 120 C 92 66, 150 44, 196 48 C 252 53, 296 84, 308 122"
+                stroke="#2d6a4f" stroke-width="3.5" opacity="0.35"/>
+          <path d="M180 26 C 176 66, 168 108, 158 150 C 150 186, 146 218, 146 252"
+                stroke="#1c2a23" stroke-width="9"/>
+          <path d="M182 30 C 186 72, 194 112, 204 152 C 212 186, 216 220, 216 252"
+                stroke="#1c2a23" stroke-width="7"/>
+          <path d="M178 60 C 140 48, 108 40, 76 44" stroke="#1c2a23" stroke-width="4.5"/>
+          <path d="M182 64 C 220 50, 258 48, 292 60" stroke="#1c2a23" stroke-width="4.5"/>
+          <path d="M120 128 C 114 168, 110 210, 110 252" stroke="#b45f2a" stroke-width="4.5"/>
+          <path d="M244 140 C 250 180, 254 216, 254 252" stroke="#b45f2a" stroke-width="4.5"/>
+          <path d="M84 176 C 80 204, 78 228, 78 252" stroke="#b45f2a" stroke-width="3.5" opacity="0.8"/>
+          <path d="M282 184 C 286 210, 288 232, 288 252" stroke="#b45f2a" stroke-width="3.5" opacity="0.8"/>
+        </g>
+        <line x1="24" y1="252" x2="336" y2="252" stroke="#1c2a23" stroke-width="5" stroke-linecap="round"/>
+        <g fill="#2d6a4f">
+          <circle cx="78" cy="266" r="3.5"/><circle cx="110" cy="266" r="3.5"/>
+          <circle cx="146" cy="266" r="3.5"/><circle cx="180" cy="266" r="3.5"/>
+          <circle cx="216" cy="266" r="3.5"/><circle cx="254" cy="266" r="3.5"/>
+          <circle cx="288" cy="266" r="3.5"/>
+        </g>
+        <g font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#55635c">
+          <text x="146" y="290">根时间线</text>
+        </g>
+        <g font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#b45f2a">
+          <text x="24" y="290">目录时间线</text>
+        </g>
+      </svg>
+      <figcaption>主干是根仓库，每条气生根是一条目录时间线——同一棵树，独立的历史。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">为什么是 banyan</span>
+      <h2>git 赢了，大仓托管仍是短板。</h2>
+      <p class="lede">五个观察决定了设计，两个结构性答案随之而来。</p>
+    </div>
+    <div class="steps">
+      <div class="card"><h3>git 是绕不开的行业标准</h3>
+        <p>二十年深耕，从个人项目到最大的企业。任何可信的方案都不能要求任何人离开 git。</p></div>
+      <div class="card"><h3>大仓托管是 git 的短板</h3>
+        <p>Android 级 monorepo 撞上它的极限：几十 GB、数百万对象、小时级 clone。浅化/稀疏/部分克隆治标不治本。</p></div>
+      <div class="card"><h3>monorepo 是代码维护的去向</h3>
+        <p>现代构建系统上，源码依赖是让代码保持存活的最优方式：跨包原子变更、零发布延迟、一次提交协调多方。</p></div>
+      <div class="card"><h3>目录级权限成为结构性需求</h3>
+        <p>部门边界、合规隔离、供应商可见性——原生 git 无法表达；按目录拆仓则摧毁了 monorepo 本来要提供的东西。</p></div>
+      <div class="card"><h3>AI Agent 放大冲突频率</h3>
+        <p>协作频率从人类的天级走向 agent 的分钟级，中心化 ref 的瓶颈被放大：推送锁、全量协商、force-push 与 rebase 级联。</p></div>
+    </div>
+    <div class="grid pillars" style="margin-top:34px">
+      <div class="card"><h3>分布式是构造性的</h3>
+        <p>pack CAS 分片 + 小体量元数据面：存储横向扩展、不绑定单机。代码——企业的核心资产——获得数据库级的可靠性，而不是一块单盘的可靠性。</p></div>
+      <div class="card"><h3>目录锚定时间线</h3>
+        <p>每个目录拥有自己的提交历史。任何子树都是仓库、传输 O(子目录)、目录之间零锁竞争——权限边界就是时间线边界。原生能力，而非外挂。</p></div>
+    </div>
+    <p style="margin-top:26px;max-width:46em;color:var(--ink-soft)">
+      <strong style="color:var(--ink)">远景：</strong>代码存储成为独立的基础设施层——任何平台、任何客户端、任何规模。</p>
+  </div>
+</section>
+
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">今天就能用的</span>
+      <h2>服务端做得不一样的九件事</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><span class="glyph">⑂</span>任何子树都是仓库</h3>
+        <p><code>/r/demo.git/tree/plumbing</code> 是一等公民的 clone URL。目录时间线构造性地小；跨目录推送零竞争，根视图读取时织入。</p></div>
+      <div class="card"><h3><span class="glyph">⇄</span>协议完备的 git 边界</h3>
+        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。64 个集成用例以真 git 钉住。</p></div>
+      <div class="card"><h3><span class="glyph">▤</span>有界内存服务</h3>
+        <p>clone 形态的抓取全部流式化：精确命中整包直传，未命中走无 delta 流式编码器——闭包永不驻留。72MiB 三 pack 仓在 64MiB 软限制下 clone，峰值 12.3MiB。</p></div>
+      <div class="card"><h3><span class="glyph">⇉</span>收敛列车</h3>
+        <p>同目录推送在时间线队列串行、服务端收敛（纯 Go merge-ort 子集）。8 个并发写者耗时 0.52× git——没有 rebase 循环。</p></div>
+      <div class="card"><h3><span class="glyph">⬢</span>构造性 HA</h3>
+        <p>refs 服务 + 散布 pack 存储（R 副本）+ 无状态网关。杀掉一个存储节点，读写照常，reconciler 自动补副本——全链路实测。</p></div>
+      <div class="card"><h3><span class="glyph">⚿</span>治理内建</h3>
+        <p>仓库/目录/分支三粒度授权、个人分支可见性、全 clone 尺寸预算、receive hooks，以及全角色运维面（pprof + 服务路径计数器）。</p></div>
+      <div class="card"><h3><span class="glyph">☘</span>需要时用薄 CLI</h3>
+        <p>可选的 <code>.banyan</code> 工作区只下载检出所需——无本地历史，status 保持在线级速度。真 git 始终是兼容边界与全量后门。</p></div>
+      <div class="card"><h3><span class="glyph">▦</span>存储行为可控</h3>
+        <p>几何 repack 永不重打大包、idx v2 64 位偏移、流式摄入扛住数百 GB 导入、命名/哈希双寻址支持在线改名。</p></div>
+      <div class="card"><h3><span class="glyph">⚖</span>MIT 内核，诚实的企业版</h3>
+        <p>存储层是 MIT。企业能力——审计、SSO 与策略后端、容灾、治理、配额——同树维护、独立许可；路线图承诺开源的不事后闭源。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">测出来的，不是说出来的</span>
+      <h2>来自基准 harness 的数字</h2>
+      <p class="lede">每个数字来自仓内基准 harness 与同机真 <code>git http-backend</code> 的对照，或来自带内存限制的集成测试。完整报告：
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">docs/16</a>。</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">12.3<small> MiB</small></div>
+        <p>64MiB 软限制下服务 72MiB 三 pack clone 的峰值堆</p></div>
+      <div class="stat"><div class="num">0.87×</div>
+        <p>增量 fetch 字节 vs 真 git http-backend（真 thin pack）</p></div>
+      <div class="stat"><div class="num">5.9<small>–29%</small></div>
+        <p>子树 clone 字节相对全量 clone（跨仓库规模）</p></div>
+      <div class="stat"><div class="num">0.52×</div>
+        <p>8 并发写者耗时 vs git 的 pull-rebase 循环</p></div>
+      <div class="stat"><div class="num">13.5<small> MiB</small></div>
+        <p>150MiB 仓 ×3 副本全集群链路 push 的峰值</p></div>
+      <div class="stat"><div class="num">64</div>
+        <p>由真 git CLI 端到端驱动的集成用例</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="quickstart" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">快速开始</span>
+      <h2>一条命令跑起来</h2>
+    </div>
+    <div class="terminals">
+      <div>
+        <h3>Docker 单节点</h3>
+<pre><code>docker compose up -d
+<span class="c"># web  http://localhost:8101 (alice/bob/admin，密码 demo)
+# git  http://alice:demo@localhost:8100/r/demo.git</span>
+
+git clone http://alice:demo@localhost:8100/r/demo.git
+<span class="c"># 任何子树同样是仓库：</span>
+git clone http://alice:demo@localhost:8100/r/demo.git/tree/plumbing</code></pre>
+      </div>
+      <div>
+        <h3>HA 集群 demo</h3>
+<pre><code><span class="c"># refs 服务 + 4 存储节点 + 无状态网关，
+# pack 以 3 副本散布；杀一个节点，继续服务</span>
+docker compose -f docker-compose.cluster.yml up -d
+
+<span class="c"># 或跟随完整走查脚本：</span>
+bash demo/cluster-demo.sh</code></pre>
+      </div>
+      <div>
+        <h3>源码构建</h3>
+<pre><code>go build ./... &amp;&amp; go vet ./...
+
+go run ./cmd/banyand \
+  -listen 127.0.0.1:8097 \
+  -root ./banyand-data -meta sqlite
+
+git remote add banyan http://127.0.0.1:8097/r/myrepo.git
+git push banyan main   <span class="c"># 首推自动建仓</span></code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">架构</span>
+      <h2>ref 面、pack 分片、织入视图</h2>
+      <p class="lede">ref 存储与 packfile 存储分离：refs 承载顺序判断，pack 内容寻址、多副本。网关无状态；根仓库由目录时间线在读取时织入。完整架构图见
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">docs/00</a>。</p>
+    </div>
+    <figure class="arch">
+      <img src="../assets/architecture.png" alt="banyan 架构图：网关、refs 服务、散布 pack 存储、织入根视图的目录时间线" loading="lazy">
+      <figcaption>一页看全每一层——从 git 协议边界到副本放置。源文件：主仓 <code>docs/architecture.svg</code>。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="./"><img src="../assets/favicon.svg" alt="">banyan</a>
+      <p style="margin:8px 0 0;font-size:13px">内核 MIT · 企业特性同树维护、独立许可 · <a href="enterprise.html">详情</a></p>
+    </div>
+    <nav>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+      <a href="docs.html">文档</a>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">路线图</a>
+      <a href="../" lang="en">EN</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

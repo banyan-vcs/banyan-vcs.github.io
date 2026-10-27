@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文档 — banyan</title>
+<meta name="description" content="banyan 文档集：架构、存储、git 兼容、HA、性能、基准与路线图——主仓库中的 17 份文档。">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="../assets/favicon.svg" alt="">banyan</a>
+    <nav class="main">
+      <a href="./#why">为什么</a>
+      <a href="./#features">能力</a>
+      <a href="./#quickstart">快速开始</a>
+      <a href="docs.html">文档</a>
+      <a href="enterprise.html">企业版</a>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+    </nav>
+    <span class="lang"><a href="../docs.html" lang="en">EN</a><b>中文</b></span>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">文档</span>
+      <h2>十七份文档，同一个仓库</h2>
+      <p class="lede">设计记录与代码同仓——下列每份文档都是主仓 <code>docs/</code> 里的一个文件。
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/README.zh-CN.md">中文 README</a>
+      与英文版保持同步。</p>
+    </div>
+    <div class="doclist">
+      <div class="row"><div class="no">00 <span>总览</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">总览</a>
+        <p>banyan 是什么，一页说清：架构地图与核心设计判断。</p></div></div>
+      <div class="row"><div class="no">01 <span>定位</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/01-big-picture.md">定位与远景</a>
+        <p>定位论题：代码存储成为独立的基础设施层。</p></div></div>
+      <div class="row"><div class="no">02 <span>模型</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/02-data-model.md">数据模型</a>
+        <p>目录锚定时间线、织入引擎、assembly-on-read。</p></div></div>
+      <div class="row"><div class="no">03 <span>存储</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/03-storage.md">存储</a>
+        <p>pack CAS：分片、流式摄入、有界内存服务、寻址与改名。</p></div></div>
+      <div class="row"><div class="no">04 <span>兼容</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/04-git-compat.md">git 兼容</a>
+        <p>协议边界：smart HTTP 与 SSH、协商语义、已接受的偏离——逐项对照真 git 验证。</p></div></div>
+      <div class="row"><div class="no">05 <span>API</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/05-service-api.md">服务层与 API</a>
+        <p>服务层抽象与 <code>/api/v1</code> 面，以及内部 RPC 面。</p></div></div>
+      <div class="row"><div class="no">06 <span>CLI</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/06-cli.md">CLI</a>
+        <p>薄 <code>.banyan</code> 工作区客户端——命令、语义，以及真 git 在哪里接手。</p></div></div>
+      <div class="row"><div class="no">07 <span>授权</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/07-authorization.md">授权</a>
+        <p>仓库/目录/分支三粒度、个人分支可见性、单机与集群的策略源。</p></div></div>
+      <div class="row"><div class="no">08 <span>派生</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/08-derived-data.md">派生数据</a>
+        <p>织入视图、缓存与失效——什么算出来、什么存下来、什么丢弃。</p></div></div>
+      <div class="row"><div class="no">09 <span>索引</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/09-indexing-packing.md">索引与打包</a>
+        <p>代数索引、idx v2 64 位偏移、几何 repack。</p></div></div>
+      <div class="row"><div class="no">10 <span>HA</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/10-ha.md">高可用</a>
+        <p>refs 服务 + 散布 pack：故障检测、failover、副本恢复、节点回归。</p></div></div>
+      <div class="row"><div class="no">11 <span>性能</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">性能</a>
+        <p>内存预算体系、瓶颈台账与实测收益——从摄入到服务。</p></div></div>
+      <div class="row"><div class="no">12 <span>demo</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/12-docker-demo.md">Docker 演示</a>
+        <p>单节点与 HA 集群两条一条命令走查。</p></div></div>
+      <div class="row"><div class="no">13 <span>测试</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/13-testing.md">测试</a>
+        <p>集成用例矩阵的方法论：64 用例、真 git CLI、内存受限链路。</p></div></div>
+      <div class="row"><div class="no">14 <span>路线图</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">路线图</a>
+        <p>里程碑：工作流、控制台、HA 线、平台集成。</p></div></div>
+      <div class="row"><div class="no">15 <span>工作流</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/15-workflow.md">工作流</a>
+        <p>收敛列车：排队、服务端收敛、force push 守卫。</p></div></div>
+      <div class="row"><div class="no">16 <span>基准</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">基准报告</a>
+        <p>与真 git http-backend 的全面对照：字节、耗时，以及每个数字的出处。</p></div></div>
+    </div>
+    <p style="margin-top:26px;color:var(--ink-soft)">
+      文档随特性落地持续增加——最新的全集看
+      <a href="https://github.com/banyan-vcs/banyan/tree/main/docs">仓库里的 docs/ 目录</a>。</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="./"><img src="../assets/favicon.svg" alt="">banyan</a>
+      <p style="margin:8px 0 0;font-size:13px">内核 MIT · 企业特性同树维护、独立许可 · <a href="enterprise.html">详情</a></p>
+    </div>
+    <nav>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+      <a href="docs.html">文档</a>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">路线图</a>
+      <a href="../docs.html" lang="en">EN</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

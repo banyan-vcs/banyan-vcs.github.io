@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — banyan</title>
+<meta name="description" content="The banyan documentation set: architecture, storage, git compatibility, HA, performance, benchmarks and roadmap — 17 documents in the main repository.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/favicon.svg" alt="">banyan</a>
+    <nav class="main">
+      <a href="./#why">Why</a>
+      <a href="./#features">Features</a>
+      <a href="./#quickstart">Quick start</a>
+      <a href="docs.html">Docs</a>
+      <a href="enterprise.html">Enterprise</a>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+    </nav>
+    <span class="lang"><b>EN</b><a href="zh-cn/docs.html" lang="zh-CN">中文</a></span>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Documentation</span>
+      <h2>Seventeen documents, one repository</h2>
+      <p class="lede">The design record lives with the code — every document
+      below is a file in <code>docs/</code> of the main repository. They are
+      written in Chinese; the
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/README.zh-CN.md">Chinese README</a>
+      and the English one are kept in parity.</p>
+    </div>
+    <div class="doclist">
+      <div class="row"><div class="no">00 <span>overview</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">Overview</a>
+        <p>What banyan is, on one page: the architecture map and the core design judgments behind it.</p></div></div>
+      <div class="row"><div class="no">01 <span>positioning</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/01-big-picture.md">Big picture</a>
+        <p>The positioning thesis: code storage as an independent infrastructure layer.</p></div></div>
+      <div class="row"><div class="no">02 <span>model</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/02-data-model.md">Data model</a>
+        <p>Directory-anchored timelines, the weaving engine, assembly-on-read.</p></div></div>
+      <div class="row"><div class="no">03 <span>storage</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/03-storage.md">Storage</a>
+        <p>The pack CAS: sharding, streaming ingest, bounded-memory serving, addressing and renames.</p></div></div>
+      <div class="row"><div class="no">04 <span>compat</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/04-git-compat.md">Git compatibility</a>
+        <p>The protocol boundary: smart HTTP and SSH, negotiation semantics, accepted deviations — each verified against real git.</p></div></div>
+      <div class="row"><div class="no">05 <span>api</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/05-service-api.md">Service &amp; API</a>
+        <p>The service layer and the <code>/api/v1</code> surface, plus the internal RPC plane.</p></div></div>
+      <div class="row"><div class="no">06 <span>cli</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/06-cli.md">CLI</a>
+        <p>The thin <code>.banyan</code> workspace client — commands, semantics, and where real git takes over.</p></div></div>
+      <div class="row"><div class="no">07 <span>auth</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/07-authorization.md">Authorization</a>
+        <p>Repo / directory / branch granularity, personal-branch visibility, policy sources for single-node and cluster.</p></div></div>
+      <div class="row"><div class="no">08 <span>derived</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/08-derived-data.md">Derived data</a>
+        <p>Woven views, caches and their invalidation — what is computed, what is stored, what is thrown away.</p></div></div>
+      <div class="row"><div class="no">09 <span>indexing</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/09-indexing-packing.md">Indexing &amp; packing</a>
+        <p>Generation numbers, idx v2 with 64-bit offsets, geometric repack.</p></div></div>
+      <div class="row"><div class="no">10 <span>ha</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/10-ha.md">High availability</a>
+        <p>Refs service + scattered packs: failure detection, failover, replica recovery, node rejoin.</p></div></div>
+      <div class="row"><div class="no">11 <span>perf</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">Performance</a>
+        <p>The memory-budget system, bottleneck ledger and the measured wins — from ingest to serving.</p></div></div>
+      <div class="row"><div class="no">12 <span>demo</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/12-docker-demo.md">Docker demos</a>
+        <p>Single node and HA-cluster walkthroughs you can run in one command.</p></div></div>
+      <div class="row"><div class="no">13 <span>testing</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/13-testing.md">Testing</a>
+        <p>The integration matrix philosophy: 64 cases, real git CLI, memory-constrained chains.</p></div></div>
+      <div class="row"><div class="no">14 <span>roadmap</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">Roadmap</a>
+        <p>Milestones: workflow, console, HA line, platform integration.</p></div></div>
+      <div class="row"><div class="no">15 <span>workflow</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/15-workflow.md">Workflow</a>
+        <p>The convergence merge train: queueing, server-side convergence, force-push guards.</p></div></div>
+      <div class="row"><div class="no">16 <span>bench</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">Benchmark report</a>
+        <p>Full comparison against a real git http-backend: bytes, wall time, and where each number comes from.</p></div></div>
+    </div>
+    <p style="margin-top:26px;color:var(--ink-soft)">
+      More lands in the tree as features do — browse
+      <a href="https://github.com/banyan-vcs/banyan/tree/main/docs">docs/ in the repository</a> for the live set.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="./"><img src="assets/favicon.svg" alt="">banyan</a>
+      <p style="margin:8px 0 0;font-size:13px">MIT core · enterprise features in-tree under a
+      separate license · <a href="enterprise.html">details</a></p>
+    </div>
+    <nav>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+      <a href="docs.html">Documentation</a>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">Roadmap</a>
+      <a href="zh-cn/docs.html" lang="zh-CN">中文</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

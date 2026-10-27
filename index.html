@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>banyan — a git-compatible version control server</title>
+<meta name="description" content="Banyan is a git-compatible VCS server: every client stays real git, while directory-anchored timelines, distributed pack storage and bounded-memory serving rebuild the server side for huge monorepos.">
+<meta property="og:title" content="banyan — a git-compatible version control server">
+<meta property="og:description" content="One tree, a forest of timelines. Directory-anchored version control with the git protocol as its boundary.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://banyan-vcs.github.io/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/favicon.svg" alt="">banyan</a>
+    <nav class="main">
+      <a href="#why">Why</a>
+      <a href="#features">Features</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#quickstart">Quick start</a>
+      <a href="docs.html">Docs</a>
+      <a href="enterprise.html">Enterprise</a>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+    </nav>
+    <span class="lang"><b>EN</b><a href="zh-cn/" lang="zh-CN">中文</a></span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">A git-compatible version control server</span>
+      <h1>One tree,<br>a forest of timelines.</h1>
+      <p class="tagline">独木成林 — the banyan grows new trunks from its own branches.</p>
+      <p class="lede">
+        Banyan keeps the git protocol as its boundary — every client stays real
+        git — and rebuilds what is behind it: every directory owns its commit
+        history, pack storage scales out across nodes, and serving runs in a
+        small, constant memory window even for multi-gigabyte repositories.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#quickstart">Get started</a>
+        <a class="btn ghost" href="https://github.com/banyan-vcs/banyan">Source on GitHub</a>
+      </div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 360 320" width="360" height="320" role="img"
+           aria-label="Banyan motif: a trunk with aerial roots descending into the ground">
+        <g fill="none" stroke-linecap="round">
+          <!-- canopy -->
+          <path d="M40 96 C 70 40, 140 16, 190 20 C 250 25, 306 58, 320 108"
+                stroke="#2d6a4f" stroke-width="5" opacity="0.55"/>
+          <path d="M60 120 C 92 66, 150 44, 196 48 C 252 53, 296 84, 308 122"
+                stroke="#2d6a4f" stroke-width="3.5" opacity="0.35"/>
+          <!-- trunk -->
+          <path d="M180 26 C 176 66, 168 108, 158 150 C 150 186, 146 218, 146 252"
+                stroke="#1c2a23" stroke-width="9"/>
+          <path d="M182 30 C 186 72, 194 112, 204 152 C 212 186, 216 220, 216 252"
+                stroke="#1c2a23" stroke-width="7"/>
+          <!-- branches into canopy -->
+          <path d="M178 60 C 140 48, 108 40, 76 44" stroke="#1c2a23" stroke-width="4.5"/>
+          <path d="M182 64 C 220 50, 258 48, 292 60" stroke="#1c2a23" stroke-width="4.5"/>
+          <!-- aerial roots: each root becomes a timeline -->
+          <path d="M120 128 C 114 168, 110 210, 110 252" stroke="#b45f2a" stroke-width="4.5"/>
+          <path d="M244 140 C 250 180, 254 216, 254 252" stroke="#b45f2a" stroke-width="4.5"/>
+          <path d="M84 176 C 80 204, 78 228, 78 252" stroke="#b45f2a" stroke-width="3.5" opacity="0.8"/>
+          <path d="M282 184 C 286 210, 288 232, 288 252" stroke="#b45f2a" stroke-width="3.5" opacity="0.8"/>
+        </g>
+        <!-- ground: the root timeline -->
+        <line x1="24" y1="252" x2="336" y2="252" stroke="#1c2a23" stroke-width="5" stroke-linecap="round"/>
+        <!-- timeline ticks under each root -->
+        <g fill="#2d6a4f">
+          <circle cx="78" cy="266" r="3.5"/><circle cx="110" cy="266" r="3.5"/>
+          <circle cx="146" cy="266" r="3.5"/><circle cx="180" cy="266" r="3.5"/>
+          <circle cx="216" cy="266" r="3.5"/><circle cx="254" cy="266" r="3.5"/>
+          <circle cx="288" cy="266" r="3.5"/>
+        </g>
+        <g font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#55635c">
+          <text x="146" y="290">root timeline</text>
+          <text x="110" y="306">·</text>
+        </g>
+        <g font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#b45f2a">
+          <text x="24" y="290">directory timelines</text>
+        </g>
+      </svg>
+      <figcaption>The trunk is the root repository; every aerial root is a
+      directory timeline — same tree, independent histories.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Why banyan</span>
+      <h2>Git won. Hosting huge repos is still unsolved.</h2>
+      <p class="lede">Five observations shape the design — and two structural
+      answers follow from them.</p>
+    </div>
+    <div class="steps">
+      <div class="card"><h3>Git is the inescapable standard</h3>
+        <p>Two decades deep, from personal projects to the largest enterprises.
+        Any credible answer must not ask anyone to leave git.</p></div>
+      <div class="card"><h3>Huge-repo hosting is git's weak spot</h3>
+        <p>Android-scale monorepos hit its limits: tens of GB, millions of
+        objects, hour-long clones. Shallow and partial clone treat symptoms,
+        not the assumption underneath.</p></div>
+      <div class="card"><h3>Monorepo is where maintenance is heading</h3>
+        <p>On modern build systems, source dependency keeps code alive:
+        atomic cross-package changes, no release lag, one commit coordinating
+        many parties.</p></div>
+      <div class="card"><h3>Directory permissions become structural</h3>
+        <p>Departmental boundaries, compliance isolation, vendor visibility —
+        native git cannot express them; splitting into many repos destroys
+        what a monorepo exists to provide.</p></div>
+      <div class="card"><h3>AI agents multiply collisions</h3>
+        <p>Collaboration frequency moves from human-days to agent-minutes,
+        amplifying centralized-ref bottlenecks: push locks, full negotiation,
+        force-push and rebase cascades.</p></div>
+    </div>
+    <div class="grid pillars" style="margin-top:34px">
+      <div class="card"><h3>Distributed by construction</h3>
+        <p>Sharded pack CAS with a small metadata plane: storage scales
+        horizontally and never binds to one machine. Code — the core
+        enterprise asset — gets the reliability of a database, not of a
+        single disk.</p></div>
+      <div class="card"><h3>Directory-anchored timelines</h3>
+        <p>Every directory owns its commit history. Any subtree is a repo,
+        transfers are O(subtree), directories never lock each other — and a
+        permission boundary is simply a timeline boundary. Native
+        capability, not an add-on.</p></div>
+    </div>
+    <p style="margin-top:26px;max-width:46em;color:var(--ink-soft)">
+      <strong style="color:var(--ink)">The vision:</strong> code storage as an
+      independent infrastructure layer — any platform, any client, any scale.</p>
+  </div>
+</section>
+
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What works today</span>
+      <h2>Nine things the server does differently</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><span class="glyph">⑂</span>Any subtree is a repo</h3>
+        <p><code>/r/demo.git/tree/plumbing</code> is a first-class clone URL.
+        Directory timelines are small by construction; cross-directory pushes
+        never contend, and the root view is woven from them on read.</p></div>
+      <div class="card"><h3><span class="glyph">⇄</span>Protocol-complete git boundary</h3>
+        <p>Smart HTTP v0/v1/v2 and git-over-SSH. The plain git CLI works with
+        no plugins — including partial clone, shallow, thin packs and
+        filtered fetches. 64 integration cases pin this with real git.</p></div>
+      <div class="card"><h3><span class="glyph">▤</span>Bounded-memory serving</h3>
+        <p>Clone-shaped fetches stream: exact-pack fast path, then a
+        delta-free streaming encoder that never holds the closure. A 72 MiB
+        three-pack clone completes under a 64 MiB soft limit at 12.3 MiB peak.</p></div>
+      <div class="card"><h3><span class="glyph">⇉</span>Convergence merge train</h3>
+        <p>Same-directory pushes serialize on a per-timeline queue and
+        converge server-side (a pure-Go merge-ort subset). Eight concurrent
+        writers finish in 0.52× git's wall time — no rebase loops.</p></div>
+      <div class="card"><h3><span class="glyph">⬢</span>HA by construction</h3>
+        <p>A refs service, scattered pack storage with R replicas, stateless
+        gateways. Kill a storage node and reads and writes keep going while
+        the reconciler restores replicas — verified end to end.</p></div>
+      <div class="card"><h3><span class="glyph">⚿</span>Governance built in</h3>
+        <p>Authorization at repo / directory / branch granularity, personal
+        branch visibility, full-clone size budgets, receive hooks, and an ops
+        plane (pprof + serve-path counters) for every deployment shape.</p></div>
+      <div class="card"><h3><span class="glyph">☘</span>Thin CLI when you want it</h3>
+        <p>An optional <code>.banyan</code> workspace downloads only what a
+        checkout needs — no local history, status stays online-fast. Real git
+        remains the compatibility boundary and the full-fidelity fallback.</p></div>
+      <div class="card"><h3><span class="glyph">▦</span>Storage that behaves</h3>
+        <p>Geometric repack that never rewrites the big pack, 64-bit idx
+        offsets, streamed ingest that survives multi-hundred-GB imports,
+        named or hashed repo addressing with live renames.</p></div>
+      <div class="card"><h3><span class="glyph">⚖</span>MIT core, honest enterprise</h3>
+        <p>The storage layer is MIT. Enterprise features — audit, SSO and
+        policy backends, DR, governance, quotas — ship in-tree under a
+        separate license, and roadmap-committed features stay open.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Measured, not claimed</span>
+      <h2>Numbers from the benchmark harness</h2>
+      <p class="lede">Every figure comes from the in-repo benchmark harness
+      against a real <code>git http-backend</code> on the same machine, or
+      from a memory-constrained integration test. Reports:
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">docs/16</a>.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">12.3<small> MiB</small></div>
+        <p>peak heap serving a 72 MiB three-pack clone under a 64 MiB soft limit</p></div>
+      <div class="stat"><div class="num">0.87×</div>
+        <p>incremental-fetch bytes vs real git http-backend (true thin packs)</p></div>
+      <div class="stat"><div class="num">5.9<small>–29%</small></div>
+        <p>subtree-clone bytes relative to a full clone, across repo sizes</p></div>
+      <div class="stat"><div class="num">0.52×</div>
+        <p>wall time for eight concurrent writers vs git's pull-rebase loops</p></div>
+      <div class="stat"><div class="num">13.5<small> MiB</small></div>
+        <p>peak pushing a 150 MiB repo with three replicas across the cluster</p></div>
+      <div class="stat"><div class="num">64</div>
+        <p>integration cases driven end to end by the real git CLI</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="quickstart" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Quick start</span>
+      <h2>Up in one command</h2>
+    </div>
+    <div class="terminals">
+      <div>
+        <h3>Docker, single node</h3>
+<pre><code>docker compose up -d
+<span class="c"># web  http://localhost:8101 (alice/bob/admin, password demo)
+# git  http://alice:demo@localhost:8100/r/demo.git</span>
+
+git clone http://alice:demo@localhost:8100/r/demo.git
+<span class="c"># any subtree is a repo too:</span>
+git clone http://alice:demo@localhost:8100/r/demo.git/tree/plumbing</code></pre>
+      </div>
+      <div>
+        <h3>HA cluster demo</h3>
+<pre><code><span class="c"># refs service + 4 storage nodes + stateless gateway,
+# packs scattered at 3 replicas; kill a node, keep serving</span>
+docker compose -f docker-compose.cluster.yml up -d
+
+<span class="c"># or the full guided walkthrough:</span>
+bash demo/cluster-demo.sh</code></pre>
+      </div>
+      <div>
+        <h3>From source</h3>
+<pre><code>go build ./... &amp;&amp; go vet ./...
+
+go run ./cmd/banyand \
+  -listen 127.0.0.1:8097 \
+  -root ./banyand-data -meta sqlite
+
+git remote add banyan http://127.0.0.1:8097/r/myrepo.git
+git push banyan main   <span class="c"># first push auto-creates</span></code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Architecture</span>
+      <h2>Ref planes, pack shards, woven views</h2>
+      <p class="lede">Ref storage and packfile storage are separated: refs
+      carry ordering, packs are content-addressed and replicated. Gateways are
+      stateless; the root repository is woven from directory timelines on
+      read. The full map lives in
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">docs/00</a>.</p>
+    </div>
+    <figure class="arch">
+      <img src="assets/architecture.png" alt="banyan architecture diagram: gateways, refs service, scattered pack storage, directory timelines woven into the root view" loading="lazy">
+      <figcaption>One page, every layer — from the git protocol boundary to
+      replica placement. Source: <code>docs/architecture.svg</code> in the
+      main repository.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="./"><img src="assets/favicon.svg" alt="">banyan</a>
+      <p style="margin:8px 0 0;font-size:13px">MIT core · enterprise features in-tree under a
+      separate license · <a href="enterprise.html">details</a></p>
+    </div>
+    <nav>
+      <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
+      <a href="docs.html">Documentation</a>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">Roadmap</a>
+      <a href="zh-cn/" lang="zh-CN">中文</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
