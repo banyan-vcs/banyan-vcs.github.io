@@ -2,8 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://banyan-vcs.github.io/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://banyan-vcs.github.io/docs.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://banyan-vcs.github.io/enterprise.html</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://banyan-vcs.github.io/zh-cn/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://banyan-vcs.github.io/zh-cn/docs.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://banyan-vcs.github.io/zh-cn/enterprise.html</loc><changefreq>monthly</changefreq></url>
 </urlset>

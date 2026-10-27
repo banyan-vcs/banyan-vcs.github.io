@@ -27,14 +27,17 @@ branch → `main` / root. If a custom domain is added later, put it in a
 ```
 index.html            EN home (why / features / numbers / quick start / architecture)
 docs.html             EN documentation index — deep links into the main repo's docs/
-enterprise.html       EN license & enterprise page
 404.html              bilingual not-found page
-zh-cn/                Chinese mirror of the three pages above
+zh-cn/                Chinese mirror of the pages above
 assets/style.css      the whole design system (~300 lines, auto dark mode)
 assets/avatar.png       the project avatar — favicon and brand mark
 assets/architecture.png  vendored from docs/architecture.png in the main repo
 robots.txt, sitemap.xml
 ```
+
+The site deliberately carries no enterprise-edition content: the license
+split is documented in the repository (`LICENSE`, `enterprise/LICENSE.enterprise`),
+not marketed here.
 
 ## Maintenance rules
 
