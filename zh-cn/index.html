@@ -117,13 +117,13 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">今天就能用的</span>
-      <h2>服务端做得不一样的八件事</h2>
+      <h2>服务端做得不一样的十件事</h2>
     </div>
     <div class="grid">
       <div class="card"><h3><span class="glyph">⑂</span>任何子树都是仓库</h3>
         <p><code>/r/demo.git/tree/plumbing</code> 是一等公民的 clone URL。目录时间线构造性地小；跨目录推送零竞争，根视图读取时织入。</p></div>
       <div class="card"><h3><span class="glyph">⇄</span>协议完备的 git 边界</h3>
-        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。64 个集成用例以真 git 钉住。</p></div>
+        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。88 个集成测试函数以真 git 钉住。</p></div>
       <div class="card"><h3><span class="glyph">▤</span>有界内存服务</h3>
         <p>clone 形态的抓取全部流式化：精确命中整包直传，未命中走无 delta 流式编码器——闭包永不驻留。72MiB 三 pack 仓在 64MiB 软限制下 clone，峰值 12.3MiB。</p></div>
       <div class="card"><h3><span class="glyph">⇉</span>收敛列车</h3>
@@ -136,6 +136,13 @@
         <p>可选的 <code>.banyan</code> 工作区只下载检出所需——无本地历史，status 保持在线级速度。真 git 始终是兼容边界与全量后门。</p></div>
       <div class="card"><h3><span class="glyph">▦</span>存储行为可控</h3>
         <p>几何 repack 永不重打大包、idx v2 64 位偏移、流式摄入扛住数百 GB 导入、命名/哈希双寻址支持在线改名。</p></div>
+      <div class="card"><h3><span class="glyph">⊕</span>GitLab 直接替换的 gRPC 前端</h3>
+        <p>gitaly 协议全量落地：vendored v19.5.2 上的 163/163 RPC——把
+        GitLab 的 <code>gitaly.yml</code> 指向 banyand，GitLab 身后的存储
+        节点就是 banyan。</p></div>
+      <div class="card"><h3><span class="glyph">⚙</span>生产姿态</h3>
+        <p>安全默认：无认证的客户端面角色与无 token 的 gitaly 拒绝启动。
+        SIGTERM 排空在途传输；每角色提供 <code>/metrics</code>。</p></div>
     </div>
   </div>
 </section>
@@ -146,7 +153,7 @@
       <span class="kicker">测出来的，不是说出来的</span>
       <h2>来自基准 harness 的数字</h2>
       <p class="lede">每个数字来自仓内基准 harness 与同机真 <code>git http-backend</code> 的对照，或来自带内存限制的集成测试。完整报告：
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">docs/16</a>。</p>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">docs/11 §3a</a>。</p>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
@@ -159,8 +166,8 @@
         <p>8 并发写者耗时 vs git 的 pull-rebase 循环</p></div>
       <div class="stat"><div class="num">13.5<small> MiB</small></div>
         <p>150MiB 仓 ×3 副本全集群链路 push 的峰值</p></div>
-      <div class="stat"><div class="num">64</div>
-        <p>由真 git CLI 端到端驱动的集成用例</p></div>
+      <div class="stat"><div class="num">88</div>
+        <p>由真 git CLI 端到端驱动的集成测试函数</p></div>
     </div>
   </div>
 </section>
@@ -195,8 +202,9 @@ bash demo/cluster-demo.sh</code></pre>
         <h3>源码构建</h3>
 <pre><code>go build ./... &amp;&amp; go vet ./...
 
+<span class="c"># -dev = 免认证本地模式；生产姿态要么带认证启动、要么不启动</span>
 go run ./cmd/banyand \
-  -listen 127.0.0.1:8097 \
+  -dev -listen 127.0.0.1:8097 \
   -root ./banyand-data -meta sqlite
 
 git remote add banyan http://127.0.0.1:8097/r/myrepo.git

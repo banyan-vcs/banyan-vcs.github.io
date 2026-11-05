@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Documentation — banyan</title>
-<meta name="description" content="The banyan documentation set: architecture, storage, git compatibility, HA, performance, benchmarks and roadmap — 17 documents in the main repository.">
+<meta name="description" content="The banyan documentation set: architecture, storage, git compatibility, HA, performance, benchmarks, the gitaly compat layer and roadmap — 18 documents in the main repository.">
 <link rel="icon" href="assets/avatar.png" type="image/png">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -28,7 +28,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Documentation</span>
-      <h2>Seventeen documents, one repository</h2>
+      <h2>Eighteen documents, one repository</h2>
       <p class="lede">The design record lives with the code — every document
       below is a file in <code>docs/</code> of the main repository. They are
       written in Chinese; the
@@ -71,25 +71,29 @@
         <p>Refs service + scattered packs: failure detection, failover, replica recovery, node rejoin.</p></div></div>
       <div class="row"><div class="no">11 <span>perf</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">Performance</a>
-        <p>The memory-budget system, bottleneck ledger and the measured wins — from ingest to serving.</p></div></div>
+        <p>The memory-budget system, bottleneck ledger, the measured wins — and the multi-run benchmark report vs git http-backend (§3a).</p></div></div>
       <div class="row"><div class="no">12 <span>demo</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/12-docker-demo.md">Docker demos</a>
         <p>Single node and HA-cluster walkthroughs you can run in one command.</p></div></div>
       <div class="row"><div class="no">13 <span>testing</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/13-testing.md">Testing</a>
-        <p>The integration matrix philosophy: 64 cases, real git CLI, memory-constrained chains.</p></div></div>
+        <p>The integration matrix philosophy: 88 test functions, real git CLI, memory-constrained chains.</p></div></div>
       <div class="row"><div class="no">14 <span>roadmap</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">Roadmap</a>
         <p>Milestones: workflow, console, HA line, platform integration.</p></div></div>
       <div class="row"><div class="no">15 <span>workflow</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/15-workflow.md">Workflow</a>
         <p>The convergence merge train: queueing, server-side convergence, force-push guards.</p></div></div>
-      <div class="row"><div class="no">16 <span>bench</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">Benchmark report</a>
-        <p>Full comparison against a real git http-backend: bytes, wall time, and where each number comes from.</p></div></div>
+      <div class="row"><div class="no">17 <span>console</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/17-console.md">Console</a>
+        <p>The product-side console (<code>banyans</code>): group/project routing, PAT auth, subtree-scoped member roles.</p></div></div>
+      <div class="row"><div class="no">19 <span>gitaly</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/19-gitaly-compat.md">Gitaly compat layer</a>
+        <p>The gitaly gRPC frontend: 163/163 RPCs on vendored v19.5.2 — the GitLab drop-in, with design notes and the honest deviations ledger.</p></div></div>
     </div>
     <p style="margin-top:26px;color:var(--ink-soft)">
-      More lands in the tree as features do — browse
+      Numbers 16 and 18 folded into 11 §3a and 19 §0 — numbering stays
+      stable so links don't rot. More lands in the tree as features do — browse
       <a href="https://github.com/banyan-vcs/banyan/tree/main/docs">docs/ in the repository</a> for the live set.</p>
   </div>
 </section>

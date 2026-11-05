@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>文档 — banyan</title>
-<meta name="description" content="banyan 文档集：架构、存储、git 兼容、HA、性能、基准与路线图——主仓库中的 17 份文档。">
+<meta name="description" content="banyan 文档集：架构、存储、git 兼容、HA、性能、基准、gitaly 兼容层与路线图——主仓库中的 18 份文档。">
 <link rel="icon" href="../assets/avatar.png" type="image/png">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
@@ -28,7 +28,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">文档</span>
-      <h2>十七份文档，同一个仓库</h2>
+      <h2>十八份文档，同一个仓库</h2>
       <p class="lede">设计记录与代码同仓——下列每份文档都是主仓 <code>docs/</code> 里的一个文件。
       <a href="https://github.com/banyan-vcs/banyan/blob/main/README.zh-CN.md">中文 README</a>
       与英文版保持同步。</p>
@@ -69,24 +69,28 @@
         <p>refs 服务 + 散布 pack：故障检测、failover、副本恢复、节点回归。</p></div></div>
       <div class="row"><div class="no">11 <span>性能</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">性能</a>
-        <p>内存预算体系、瓶颈台账与实测收益——从摄入到服务。</p></div></div>
+        <p>内存预算体系、瓶颈台账、实测收益，以及多轮基准实测报告与劣化归因（§3a）。</p></div></div>
       <div class="row"><div class="no">12 <span>demo</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/12-docker-demo.md">Docker 演示</a>
         <p>单节点与 HA 集群两条一条命令走查。</p></div></div>
       <div class="row"><div class="no">13 <span>测试</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/13-testing.md">测试</a>
-        <p>集成用例矩阵的方法论：64 用例、真 git CLI、内存受限链路。</p></div></div>
+        <p>集成用例矩阵的方法论：88 个测试函数、真 git CLI、内存受限链路。</p></div></div>
       <div class="row"><div class="no">14 <span>路线图</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">路线图</a>
         <p>里程碑：工作流、控制台、HA 线、平台集成。</p></div></div>
       <div class="row"><div class="no">15 <span>工作流</span></div>
         <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/15-workflow.md">工作流</a>
         <p>收敛列车：排队、服务端收敛、force push 守卫。</p></div></div>
-      <div class="row"><div class="no">16 <span>基准</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">基准报告</a>
-        <p>与真 git http-backend 的全面对照：字节、耗时，以及每个数字的出处。</p></div></div>
+      <div class="row"><div class="no">17 <span>控制台</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/17-console.md">控制台</a>
+        <p>产品侧控制台（<code>banyans</code>）：组/项目路由、PAT 认证、子树作用域成员角色。</p></div></div>
+      <div class="row"><div class="no">19 <span>gitaly</span></div>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/19-gitaly-compat.md">Gitaly 兼容层</a>
+        <p>gitaly gRPC 前端：vendored v19.5.2 上的 163/163 RPC——GitLab 直接替换，含设计记录与诚实差异清单。</p></div></div>
     </div>
     <p style="margin-top:26px;color:var(--ink-soft)">
+      16 与 18 两号已分别并入 11 §3a 与 19 §0——编号保持稳定，链接不腐。
       文档随特性落地持续增加——最新的全集看
       <a href="https://github.com/banyan-vcs/banyan/tree/main/docs">仓库里的 docs/ 目录</a>。</p>
   </div>

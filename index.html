@@ -143,7 +143,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">What works today</span>
-      <h2>Eight things the server does differently</h2>
+      <h2>Ten things the server does differently</h2>
     </div>
     <div class="grid">
       <div class="card"><h3><span class="glyph">⑂</span>Any subtree is a repo</h3>
@@ -153,7 +153,7 @@
       <div class="card"><h3><span class="glyph">⇄</span>Protocol-complete git boundary</h3>
         <p>Smart HTTP v0/v1/v2 and git-over-SSH. The plain git CLI works with
         no plugins — including partial clone, shallow, thin packs and
-        filtered fetches. 64 integration cases pin this with real git.</p></div>
+        filtered fetches. 88 integration cases pin this with real git.</p></div>
       <div class="card"><h3><span class="glyph">▤</span>Bounded-memory serving</h3>
         <p>Clone-shaped fetches stream: exact-pack fast path, then a
         delta-free streaming encoder that never holds the closure. A 72 MiB
@@ -178,6 +178,14 @@
         <p>Geometric repack that never rewrites the big pack, 64-bit idx
         offsets, streamed ingest that survives multi-hundred-GB imports,
         named or hashed repo addressing with live renames.</p></div>
+      <div class="card"><h3><span class="glyph">⊕</span>A GitLab drop-in gRPC frontend</h3>
+        <p>The gitaly protocol, complete: 163/163 RPCs against vendored
+        v19.5.2 — point GitLab's <code>gitaly.yml</code> at banyand and the
+        storage node behind GitLab is banyan.</p></div>
+      <div class="card"><h3><span class="glyph">⚙</span>A production posture</h3>
+        <p>Secure by default: unauthenticated client-facing roles and
+        tokenless gitaly refuse to boot. SIGTERM drains in-flight
+        transfers; every role serves <code>/metrics</code>.</p></div>
     </div>
   </div>
 </section>
@@ -190,7 +198,7 @@
       <p class="lede">Every figure comes from the in-repo benchmark harness
       against a real <code>git http-backend</code> on the same machine, or
       from a memory-constrained integration test. Reports:
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/16-benchmark-report.md">docs/16</a>.</p>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">docs/11 §3a</a>.</p>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
@@ -203,8 +211,8 @@
         <p>wall time for eight concurrent writers vs git's pull-rebase loops</p></div>
       <div class="stat"><div class="num">13.5<small> MiB</small></div>
         <p>peak pushing a 150 MiB repo with three replicas across the cluster</p></div>
-      <div class="stat"><div class="num">64</div>
-        <p>integration cases driven end to end by the real git CLI</p></div>
+      <div class="stat"><div class="num">88</div>
+        <p>integration test functions driven end to end by the real git CLI</p></div>
     </div>
   </div>
 </section>
@@ -239,8 +247,9 @@ bash demo/cluster-demo.sh</code></pre>
         <h3>From source</h3>
 <pre><code>go build ./... &amp;&amp; go vet ./...
 
+<span class="c"># -dev = unauthenticated local mode; production boots authed or not at all</span>
 go run ./cmd/banyand \
-  -listen 127.0.0.1:8097 \
+  -dev -listen 127.0.0.1:8097 \
   -root ./banyand-data -meta sqlite
 
 git remote add banyan http://127.0.0.1:8097/r/myrepo.git
