@@ -141,8 +141,9 @@
         GitLab 的 <code>gitaly.yml</code> 指向 banyand，GitLab 身后的存储
         节点就是 banyan。</p></div>
       <div class="card"><h3><span class="glyph">⚙</span>生产姿态</h3>
-        <p>安全默认：无认证的客户端面角色与无 token 的 gitaly 拒绝启动。
-        SIGTERM 排空在途传输；每角色提供 <code>/metrics</code>。</p></div>
+        <p>安全默认：无认证的客户端面角色与无 token 的 gitaly 拒绝启动；
+        生产元数据缺省进 PostgreSQL（MySQL 并列支持）。SIGTERM 排空在途
+        传输；每角色提供 <code>/metrics</code>。</p></div>
     </div>
   </div>
 </section>

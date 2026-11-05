@@ -184,8 +184,9 @@
         storage node behind GitLab is banyan.</p></div>
       <div class="card"><h3><span class="glyph">⚙</span>A production posture</h3>
         <p>Secure by default: unauthenticated client-facing roles and
-        tokenless gitaly refuse to boot. SIGTERM drains in-flight
-        transfers; every role serves <code>/metrics</code>.</p></div>
+        tokenless gitaly refuse to boot; production metadata defaults to
+        PostgreSQL (MySQL supported). SIGTERM drains in-flight transfers;
+        every role serves <code>/metrics</code>.</p></div>
     </div>
   </div>
 </section>
