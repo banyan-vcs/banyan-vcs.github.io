@@ -220,13 +220,13 @@ git push banyan main   <span class="c"># 首推自动建仓</span></code></pre>
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">架构</span>
-      <h2>ref 面、pack 分片、织入视图</h2>
-      <p class="lede">ref 存储与 packfile 存储分离：refs 承载顺序判断，pack 内容寻址、多副本。网关无状态；根仓库由目录时间线在读取时织入。完整架构图见
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">docs/00</a>。</p>
+      <h2>目录时间线，读时织入</h2>
+      <p class="lede">每个目录拥有自己的提交历史，根仓库在读取时由这些时间线织出——一次 push 只 CAS 一条时间线，跨目录零锁。pack 是不可变内容寻址分片，散布于存储节点；refs 服务是唯一串行点。</p>
     </div>
     <figure class="arch">
-      <img src="../assets/architecture.png" alt="banyan 架构图：网关、refs 服务、散布 pack 存储、织入根视图的目录时间线" loading="lazy">
-      <figcaption>一页看全每一层——从 git 协议边界到副本放置。源文件：主仓 <code>docs/architecture.svg</code>。</figcaption>
+      <img src="../assets/architecture-simple.zh.svg" alt="banyan 简化架构：客户端接入无状态网关；refs 服务为唯一串行点，旁边是散布 pack 存储；目录时间线读时织入根视图" loading="lazy">
+      <figcaption>客户端经无状态网关接入；中心 refs 与散布 pack 分片并存；目录时间线读时织入根仓库。完整分层架构图见
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">docs/00</a>。</figcaption>
     </figure>
   </div>
 </section>

@@ -265,18 +265,19 @@ git push banyan main   <span class="c"># first push auto-creates</span></code></
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Architecture</span>
-      <h2>Ref planes, pack shards, woven views</h2>
-      <p class="lede">Ref storage and packfile storage are separated: refs
-      carry ordering, packs are content-addressed and replicated. Gateways are
-      stateless; the root repository is woven from directory timelines on
-      read. The full map lives in
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">docs/00</a>.</p>
+      <h2>Directory timelines, woven on read</h2>
+      <p class="lede">Every directory owns its commit history; the root
+      repository is woven from those timelines when read, so a push CASes
+      exactly one timeline — zero cross-directory locks. Packs are
+      immutable, content-addressed shards scattered across storage nodes;
+      one refs service is the only serialization point.</p>
     </div>
     <figure class="arch">
-      <img src="assets/architecture.png" alt="banyan architecture diagram: gateways, refs service, scattered pack storage, directory timelines woven into the root view" loading="lazy">
-      <figcaption>One page, every layer — from the git protocol boundary to
-      replica placement. Source: <code>docs/architecture.svg</code> in the
-      main repository.</figcaption>
+      <img src="assets/architecture-simple.svg" alt="banyan simplified architecture: clients over stateless gateways; a refs service as the only serialization point beside scattered pack storage; directory timelines woven into the root view" loading="lazy">
+      <figcaption>Clients over stateless gateways; central refs beside
+      scattered pack shards; directory timelines woven into the root
+      repository on read. The full layer-by-layer map lives in
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">docs/00</a>.</figcaption>
     </figure>
   </div>
 </section>
