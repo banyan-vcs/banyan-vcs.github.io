@@ -45,12 +45,12 @@ not marketed here.
   updated together (root ↔ `zh-cn/`) — the language switcher links them
   one-to-one.
 - **Numbers** (stats band, feature cards) must come from the benchmark
-  harness (`docs/16-benchmark-report.md`) or memory-constrained integration
-  tests (`docs/13-testing.md`) in the main repo — never invent one. When a
+  harness (`docs/operations/performance.md`) or memory-constrained integration
+  tests (`docs/operations/testing.md`) in the main repo — never invent one. When a
   number changes there, change it here in both languages.
 - **Docs index** links to `blob/main/docs/…`. Only list documents that exist
-  on the `main` branch (today: 00–16; `docs/17-console.md` still rides the
-  `next` branch). Add a row in both `docs.html` and `zh-cn/docs.html` when a
+  on the `main` branch (sub-module directories, de-numbered names — the repo's
+  `docs/README.md` is the index). Add a row in both `docs.html` and `zh-cn/docs.html` when a
   document lands on `main`.
 - **Architecture image**: copy fresh from the main repo
   (`docs/architecture.png`, regenerated from `architecture.svg`) whenever

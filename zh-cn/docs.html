@@ -36,58 +36,58 @@
     </div>
     <div class="doclist">
       <div class="row"><div class="no">00 <span>总览</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/00-overview.md">总览</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/overview.md">总览</a>
         <p>banyan 是什么，一页说清：架构地图与核心设计判断。</p></div></div>
       <div class="row"><div class="no">01 <span>定位</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/01-big-picture.md">定位与远景</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/big-picture.md">定位与远景</a>
         <p>定位论题：代码存储成为独立的基础设施层。</p></div></div>
       <div class="row"><div class="no">02 <span>模型</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/02-data-model.md">数据模型</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/data-model.md">数据模型</a>
         <p>目录锚定时间线、织入引擎、assembly-on-read。</p></div></div>
       <div class="row"><div class="no">03 <span>存储</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/03-storage.md">存储</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/storage/storage.md">存储</a>
         <p>pack CAS：分片、流式摄入、有界内存服务、寻址与改名。</p></div></div>
       <div class="row"><div class="no">04 <span>兼容</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/04-git-compat.md">git 兼容</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/gateway/git-compat.md">git 兼容</a>
         <p>协议边界：smart HTTP 与 SSH、协商语义、已接受的偏离——逐项对照真 git 验证。</p></div></div>
       <div class="row"><div class="no">05 <span>API</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/05-service-api.md">服务层与 API</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/gateway/service-api.md">服务层与 API</a>
         <p>服务层抽象与 <code>/api/v1</code> 面，以及内部 RPC 面。</p></div></div>
       <div class="row"><div class="no">06 <span>CLI</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/06-cli.md">CLI</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/client/cli.md">CLI</a>
         <p>薄 <code>.banyan</code> 工作区客户端——命令、语义，以及真 git 在哪里接手。</p></div></div>
       <div class="row"><div class="no">07 <span>授权</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/07-authorization.md">授权</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/gateway/authorization.md">授权</a>
         <p>仓库/目录/分支三粒度、个人分支可见性、单机与集群的策略源。</p></div></div>
       <div class="row"><div class="no">08 <span>派生</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/08-derived-data.md">派生数据</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/derived-data.md">派生数据</a>
         <p>织入视图、缓存与失效——什么算出来、什么存下来、什么丢弃。</p></div></div>
       <div class="row"><div class="no">09 <span>索引</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/09-indexing-packing.md">索引与打包</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/storage/indexing-packing.md">索引与打包</a>
         <p>代数索引、idx v2 64 位偏移、几何 repack。</p></div></div>
       <div class="row"><div class="no">10 <span>HA</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/10-ha.md">高可用</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/storage/ha.md">高可用</a>
         <p>refs 服务 + 散布 pack：故障检测、failover、副本恢复、节点回归。</p></div></div>
       <div class="row"><div class="no">11 <span>性能</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/11-performance.md">性能</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">性能</a>
         <p>内存预算体系、瓶颈台账、实测收益，以及多轮基准实测报告与劣化归因（§3a）。</p></div></div>
       <div class="row"><div class="no">12 <span>demo</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/12-docker-demo.md">Docker 演示</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/docker-demo.md">Docker 演示</a>
         <p>单节点与 HA 集群两条一条命令走查。</p></div></div>
       <div class="row"><div class="no">13 <span>测试</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/13-testing.md">测试</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/testing.md">测试</a>
         <p>集成用例矩阵的方法论：88 个测试函数、真 git CLI、内存受限链路。</p></div></div>
       <div class="row"><div class="no">14 <span>路线图</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">路线图</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/project/roadmap.md">路线图</a>
         <p>里程碑：工作流、控制台、HA 线、平台集成。</p></div></div>
       <div class="row"><div class="no">15 <span>工作流</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/15-workflow.md">工作流</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/workflow.md">工作流</a>
         <p>收敛列车：排队、服务端收敛、force push 守卫。</p></div></div>
       <div class="row"><div class="no">17 <span>控制台</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/17-console.md">控制台</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/web/console.md">控制台</a>
         <p>产品侧控制台（<code>banyans</code>）：组/项目路由、PAT 认证、子树作用域成员角色。</p></div></div>
       <div class="row"><div class="no">19 <span>gitaly</span></div>
-        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/19-gitaly-compat.md">Gitaly 兼容层</a>
+        <div><a class="title" href="https://github.com/banyan-vcs/banyan/blob/main/docs/integration/gitaly-compat.md">Gitaly 兼容层</a>
         <p>gitaly gRPC 前端：vendored v19.5.2 上的 163/163 RPC——GitLab 直接替换，含设计记录与诚实差异清单。</p></div></div>
     </div>
     <p style="margin-top:26px;color:var(--ink-soft)">
@@ -106,7 +106,7 @@
     <nav>
       <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
       <a href="docs.html">文档</a>
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/14-roadmap.md">路线图</a>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/project/roadmap.md">路线图</a>
       <a href="../docs.html" lang="en" data-lang="en">EN</a>
     </nav>
   </div>
