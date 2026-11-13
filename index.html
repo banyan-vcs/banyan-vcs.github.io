@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>banyan — a git-compatible version control server</title>
-<meta name="description" content="Banyan is a git-compatible VCS server: every client stays real git, while directory-anchored timelines, distributed pack storage and bounded-memory serving rebuild the server side for huge monorepos.">
+<meta name="description" content="Banyan is a git-compatible VCS server: every client stays real git, while directory-anchored timelines, distributed pack storage, bounded-memory serving and a three-tier web/gateway/storage console rebuild the server side for huge monorepos.">
 <meta property="og:title" content="banyan — a git-compatible version control server">
 <meta property="og:description" content="One tree, a forest of timelines. Directory-anchored version control with the git protocol as its boundary.">
 <meta property="og:type" content="website">
@@ -144,7 +144,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">What works today</span>
-      <h2>Ten things the server does differently</h2>
+      <h2>Eleven things the server does differently</h2>
     </div>
     <div class="grid">
       <div class="card"><h3><span class="glyph">⑂</span>Any subtree is a repo</h3>
@@ -155,7 +155,7 @@
       <div class="card"><h3><span class="glyph">⇄</span>Protocol-complete git boundary</h3>
         <p>Smart HTTP v0/v1/v2 and git-over-SSH. The plain git CLI works with
         no plugins — including partial clone, shallow, thin packs and
-        filtered fetches. 106 integration cases pin this with real git.</p></div>
+        filtered fetches. 109 integration cases pin this with real git.</p></div>
       <div class="card"><h3><span class="glyph">▤</span>Bounded-memory serving</h3>
         <p>Clone-shaped fetches stream: exact-pack fast path, then a
         delta-free streaming encoder that never holds the closure. A 72 MiB
@@ -184,6 +184,12 @@
         <p>The gitaly protocol, complete: 163/163 RPCs against vendored
         v19.5.2 — point GitLab's <code>gitaly.yml</code> at banyand and the
         storage node behind GitLab is banyan.</p></div>
+      <div class="card"><h3><span class="glyph">◍</span>Its own web console</h3>
+        <p>A Go web tier — <code>banyand web</code> — fronts the gateway as
+        the control plane: local or GitHub/GitLab OAuth sign-in, browsing,
+        tokens, subtree governance, and repo import from github.com,
+        gitlab.com or self-hosted GitLab. Capability profiles shape it: the
+        full console standalone, a subtree companion inside GitLab.</p></div>
       <div class="card"><h3><span class="glyph">⚙</span>A production posture</h3>
         <p>Secure by default: unauthenticated client-facing roles and
         tokenless gitaly refuse to boot; production metadata defaults to
@@ -201,7 +207,7 @@
       <p class="lede">Every figure comes from the in-repo benchmark harness
       against a real <code>git http-backend</code> on the same machine, or
       from a memory-constrained integration test. Reports:
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/11 §3a</a>.</p>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a</a>.</p>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
@@ -214,8 +220,8 @@
         <p>wall time for eight concurrent writers vs git's pull-rebase loops</p></div>
       <div class="stat"><div class="num">13.5<small> MiB</small></div>
         <p>peak pushing a 150 MiB repo with three replicas across the cluster</p></div>
-      <div class="stat"><div class="num">88</div>
-        <p>integration test functions driven end to end by the real git CLI</p></div>
+      <div class="stat"><div class="num">109</div>
+        <p>integration test functions in 12 sub-packages, the real git CLI as the client</p></div>
     </div>
   </div>
 </section>
@@ -233,8 +239,11 @@
 <span class="c"># web  http://localhost:8101 (alice/bob/admin, password demo)
 # git  http://alice:demo@localhost:8100/r/demo.git</span>
 
+<span class="c"># a first push auto-creates the repo (main is admin-push-only):</span>
+git push http://admin:demo@localhost:8100/r/demo.git main
+
 git clone http://alice:demo@localhost:8100/r/demo.git
-<span class="c"># any subtree is a repo too — one project out of a monorepo:</span>
+<span class="c"># any subtree is a repo too — one project out of the monorepo you pushed:</span>
 git clone http://alice:demo@localhost:8100/r/demo.git/tree/frameworks/base</code></pre>
       </div>
       <div>
@@ -274,11 +283,13 @@ git push banyan main   <span class="c"># first push auto-creates</span></code></
       one refs service is the only serialization point.</p>
     </div>
     <figure class="arch">
-      <img src="assets/architecture-simple.svg" alt="banyan simplified architecture: clients over stateless gateways; a refs service as the only serialization point beside scattered pack storage; directory timelines woven into the root view" loading="lazy">
-      <figcaption>Clients over stateless gateways; central refs beside
-      scattered pack shards; directory timelines woven into the root
+      <img src="assets/architecture-simple.svg" alt="banyan simplified architecture: browsers over a stateless web tier; git, GitLab and thin-CLI clients straight to stateless gateways; a refs service as the only serialization point beside scattered pack storage; directory timelines woven into the root view" loading="lazy">
+      <figcaption>Browsers go through a stateless web tier
+      (<code>banyand web</code> — sign-in, import, capability profiles);
+      every other client talks straight to stateless gateways; central refs
+      beside scattered pack shards; directory timelines woven into the root
       repository on read. The full layer-by-layer map lives in
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/overview.md">docs/00</a>.</figcaption>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/overview.md">docs/design/overview.md</a>.</figcaption>
     </figure>
   </div>
 </section>

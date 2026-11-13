@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>banyan — git 兼容的版本控制服务端</title>
-<meta name="description" content="Banyan 是 git 兼容的版本控制服务端：客户端始终是真正的 git，服务端则为大仓重塑——目录锚定时间线、分布式 pack 存储、有界内存服务。">
+<meta name="description" content="Banyan 是 git 兼容的版本控制服务端：客户端始终是真正的 git，服务端则为大仓重塑——目录锚定时间线、分布式 pack 存储、有界内存服务，以及 web / gateway / 存储三层控制台。">
 <meta property="og:title" content="banyan — git 兼容的版本控制服务端">
 <meta property="og:description" content="独木成林——每个目录都有自己的时间线。以 git 协议为边界的版本控制服务端。">
 <meta property="og:type" content="website">
@@ -118,13 +118,13 @@
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">今天就能用的</span>
-      <h2>服务端做得不一样的十件事</h2>
+      <h2>服务端做得不一样的十一件事</h2>
     </div>
     <div class="grid">
       <div class="card"><h3><span class="glyph">⑂</span>任何子树都是仓库</h3>
         <p><code>/r/demo.git/tree/frameworks/base</code> 是一等公民的 clone URL——从 Android 规模的大仓里只取一个项目。目录时间线构造性地小；跨目录推送零竞争，根视图读取时织入。</p></div>
       <div class="card"><h3><span class="glyph">⇄</span>协议完备的 git 边界</h3>
-        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。106 个集成测试函数以真 git 钉住。</p></div>
+        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。109 个集成测试函数以真 git 钉住。</p></div>
       <div class="card"><h3><span class="glyph">▤</span>有界内存服务</h3>
         <p>clone 形态的抓取全部流式化：精确命中整包直传，未命中走无 delta 流式编码器——闭包永不驻留。72MiB 三 pack 仓在 64MiB 软限制下 clone，峰值 12.3MiB。</p></div>
       <div class="card"><h3><span class="glyph">⇉</span>收敛列车</h3>
@@ -141,6 +141,11 @@
         <p>gitaly 协议全量落地：vendored v19.5.2 上的 163/163 RPC——把
         GitLab 的 <code>gitaly.yml</code> 指向 banyand，GitLab 身后的存储
         节点就是 banyan。</p></div>
+      <div class="card"><h3><span class="glyph">◍</span>自带 Web 控制台</h3>
+        <p>Go Web 层 <code>banyand web</code> 作为控制面直面网关：本地
+        账号或 GitHub/GitLab OAuth 登录，浏览、token、子树治理，以及从
+        github.com、gitlab.com、私有 GitLab 导入仓库。能力档位两种形态：
+        独立站全量控制面、GitLab 内的子树伴随面。</p></div>
       <div class="card"><h3><span class="glyph">⚙</span>生产姿态</h3>
         <p>安全默认：无认证的客户端面角色与无 token 的 gitaly 拒绝启动；
         生产元数据缺省进 PostgreSQL（MySQL 并列支持）。SIGTERM 排空在途
@@ -155,7 +160,7 @@
       <span class="kicker">测出来的，不是说出来的</span>
       <h2>来自基准 harness 的数字</h2>
       <p class="lede">每个数字来自仓内基准 harness 与同机真 <code>git http-backend</code> 的对照，或来自带内存限制的集成测试。完整报告：
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/11 §3a</a>。</p>
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a</a>。</p>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
@@ -168,8 +173,8 @@
         <p>8 并发写者耗时 vs git 的 pull-rebase 循环</p></div>
       <div class="stat"><div class="num">13.5<small> MiB</small></div>
         <p>150MiB 仓 ×3 副本全集群链路 push 的峰值</p></div>
-      <div class="stat"><div class="num">88</div>
-        <p>由真 git CLI 端到端驱动的集成测试函数</p></div>
+      <div class="stat"><div class="num">109</div>
+        <p>12 个子包里的集成测试函数，真 git CLI 作客户端</p></div>
     </div>
   </div>
 </section>
@@ -187,8 +192,11 @@
 <span class="c"># web  http://localhost:8101 (alice/bob/admin，密码 demo)
 # git  http://alice:demo@localhost:8100/r/demo.git</span>
 
+<span class="c"># 首次推送自动建仓（demo 策略下 main 仅 admin 可推）：</span>
+git push http://admin:demo@localhost:8100/r/demo.git main
+
 git clone http://alice:demo@localhost:8100/r/demo.git
-<span class="c"># 任何子树同样是仓库——大仓里只取一个项目：</span>
+<span class="c"># 任何子树同样是仓库——你推上去的大仓里只取一个项目：</span>
 git clone http://alice:demo@localhost:8100/r/demo.git/tree/frameworks/base</code></pre>
       </div>
       <div>
@@ -224,9 +232,9 @@ git push banyan main   <span class="c"># 首推自动建仓</span></code></pre>
       <p class="lede">每个目录拥有自己的提交历史，根仓库在读取时由这些时间线织出——一次 push 只 CAS 一条时间线，跨目录零锁。pack 是不可变内容寻址分片，散布于存储节点；refs 服务是唯一串行点。</p>
     </div>
     <figure class="arch">
-      <img src="../assets/architecture-simple.zh.svg" alt="banyan 简化架构：客户端接入无状态网关；refs 服务为唯一串行点，旁边是散布 pack 存储；目录时间线读时织入根视图" loading="lazy">
-      <figcaption>客户端经无状态网关接入；中心 refs 与散布 pack 分片并存；目录时间线读时织入根仓库。完整分层架构图见
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/overview.md">docs/00</a>。</figcaption>
+      <img src="../assets/architecture-simple.zh.svg" alt="banyan 简化架构：浏览器经无状态 web 层接入；git、GitLab 与薄 CLI 客户端直达无状态网关；refs 服务为唯一串行点，旁边是散布 pack 存储；目录时间线读时织入根视图" loading="lazy">
+      <figcaption>浏览器经无状态 web 层（<code>banyand web</code>——登录、导入、能力档位）接入；其余客户端直达无状态网关；中心 refs 与散布 pack 分片并存；目录时间线读时织入根仓库。完整分层架构图见
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/design/overview.md">docs/design/overview.md</a>。</figcaption>
     </figure>
   </div>
 </section>

@@ -31,7 +31,9 @@ docs.html             EN documentation index — deep links into the main repo's
 zh-cn/                Chinese mirror of the pages above
 assets/style.css      the whole design system (~300 lines, auto dark mode)
 assets/avatar.png       the project avatar — favicon and brand mark
-assets/architecture.png  vendored from docs/architecture.png in the main repo
+assets/lang.js          language negotiation (the zh-cn link is advisory)
+assets/architecture-simple.svg      EN simplified architecture diagram
+assets/architecture-simple.zh.svg   ZH copy — both vendored from docs/assets/ in the main repo
 robots.txt, sitemap.xml
 ```
 
@@ -52,9 +54,10 @@ not marketed here.
   on the `main` branch (sub-module directories, de-numbered names — the repo's
   `docs/README.md` is the index). Add a row in both `docs.html` and `zh-cn/docs.html` when a
   document lands on `main`.
-- **Architecture image**: copy fresh from the main repo
-  (`docs/architecture.png`, regenerated from `architecture.svg`) whenever
-  the diagram changes.
+- **Architecture diagrams**: copy fresh from the main repo
+  (`docs/assets/architecture-simple.svg` and its `.zh.svg` sibling)
+  whenever the topology changes — both languages together, and the README
+  `alt` texts in the main repo move with them.
 - **Voice**: first-party design judgments only. No third-party inspiration
   attributions anywhere on the site — same rule as the repository docs.
 - **No external assets**: no web fonts, no CDN scripts, no analytics. Keep
