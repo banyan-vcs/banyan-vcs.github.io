@@ -163,12 +163,12 @@
       <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a–§3b</a>。</p>
     </div>
     <div class="stats">
-      <div class="stat"><div class="num">0.74×</div>
-        <p>warm 全量克隆耗时 vs git http-backend——直接在 git.git 上实测（8.5 万提交、2031 refs，单包 verbatim 直传、零枚举）</p></div>
-      <div class="stat"><div class="num">0.55×</div>
+      <div class="stat"><div class="num">1.13×</div>
+        <p>全量克隆字节 vs git http-backend——直接在 git.git 上实测（8.5 万提交、2031 refs；warm 耗时持平，单包 verbatim 直传、零枚举）</p></div>
+      <div class="stat"><div class="num">0.61×</div>
         <p>同仓浅克隆耗时（字节 1.08×）</p></div>
-      <div class="stat"><div class="num">1.01×</div>
-        <p>git.git 的 2,031 refs + ~30 子树投影的广告字节</p></div>
+      <div class="stat"><div class="num">0.99×</div>
+        <p>git.git 的 2,031 refs 广告字节</p></div>
       <div class="stat"><div class="num">35<small>%</small></div>
         <p>子树克隆字节 vs 全量克隆（真实 4K 提交仓实测；git 无对应能力）</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
