@@ -213,14 +213,14 @@
       <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a–§3b</a>.</p>
     </div>
     <div class="stats">
-      <div class="stat"><div class="num">0.54×</div>
-        <p>shallow-clone wall time vs git http-backend, measured on git.git itself (85K commits, 2,031 refs; 1.08× bytes)</p></div>
-      <div class="stat"><div class="num">1.16×</div>
-        <p>full-clone bytes on a real 4K-commit repository; warm clones run at 0.50× git's wall time</p></div>
+      <div class="stat"><div class="num">0.74×</div>
+        <p>warm full-clone wall time vs git http-backend, measured on git.git itself (85K commits, 2,031 refs — the single pack streams verbatim, no enumeration)</p></div>
+      <div class="stat"><div class="num">0.55×</div>
+        <p>shallow-clone wall time on the same git.git (1.08× bytes)</p></div>
       <div class="stat"><div class="num">1.01×</div>
         <p>advertisement bytes for git.git's 2,031 refs plus ~30 subtree projections</p></div>
       <div class="stat"><div class="num">35<small>%</small></div>
-        <p>subtree-clone bytes vs the full clone of the same real repository — git has no counterpart</p></div>
+        <p>subtree-clone bytes vs the full clone on a real 4K-commit repository — git has no counterpart</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
         <p>peak heap serving a 72 MiB three-pack clone under a 64 MiB soft limit</p></div>
       <div class="stat"><div class="num">109</div>
