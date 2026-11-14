@@ -41,6 +41,8 @@
         git — and rebuilds what is behind it: every directory owns its commit
         history, pack storage scales out across nodes, and serving runs in a
         small, constant memory window even for multi-gigabyte repositories.
+        Measured on git.git itself (85K commits): full clones at 1.13× git's
+        bytes with wall time at parity, shallow clones in 0.61× the time.
       </p>
       <div class="cta">
         <a class="btn primary" href="#quickstart">Get started</a>
@@ -206,25 +208,23 @@
     <div class="section-head">
       <span class="kicker">Measured, not claimed</span>
       <h2>Numbers from the benchmark harness</h2>
-      <p class="lede">Every figure comes from the in-repo benchmark harness
-      against a real <code>git http-backend</code> on the same machine —
-      synthetic profiles for structure, real repositories (go-git, git.git)
-      for history — or from memory-constrained integration tests. Reports:
+      <p class="lede">Measured against a real <code>git http-backend</code> on
+      the same machine — the flagship lanes on git.git itself. Full reports:
       <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a–§3b</a>.</p>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">1.13×</div>
-        <p>full-clone bytes vs git http-backend, measured on git.git itself (85K commits, 2,031 refs; warm wall time at parity — the single pack streams verbatim, no enumeration)</p></div>
+        <p>full-clone bytes vs git on git.git — warm wall time at parity</p></div>
       <div class="stat"><div class="num">0.61×</div>
-        <p>shallow-clone wall time on the same git.git (1.08× bytes)</p></div>
+        <p>shallow-clone wall time, same repository</p></div>
       <div class="stat"><div class="num">0.99×</div>
-        <p>advertisement bytes for git.git's 2,031 refs</p></div>
+        <p>advertisement bytes for those 2,031 refs</p></div>
       <div class="stat"><div class="num">35<small>%</small></div>
-        <p>subtree-clone bytes vs the full clone on a real 4K-commit repository — git has no counterpart</p></div>
+        <p>subtree-clone bytes vs the full clone — a shape git does not have</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
-        <p>peak heap serving a 72 MiB three-pack clone under a 64 MiB soft limit</p></div>
+        <p>peak heap serving a 72 MiB clone under a 64 MiB soft limit</p></div>
       <div class="stat"><div class="num">109</div>
-        <p>integration test functions in 12 sub-packages, the real git CLI as the client</p></div>
+        <p>integration test functions, the real git CLI as the client</p></div>
     </div>
   </div>
 </section>

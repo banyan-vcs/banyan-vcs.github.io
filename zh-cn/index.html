@@ -40,6 +40,8 @@
         Banyan 以 git 协议为边界——客户端始终是真正的 git；边界之后全部重塑：
         每个目录拥有自己的提交历史，pack 存储横向扩展到多个节点，
         服务路径在恒定的小内存窗口内运行——多 GB 的大仓也一样。
+        直接在 git.git 上实测（8.5 万提交）：全量克隆字节 1.13×、warm 耗时持平，
+        浅克隆耗时 0.61×。
       </p>
       <div class="cta">
         <a class="btn primary" href="#quickstart">快速开始</a>
@@ -159,22 +161,22 @@
     <div class="section-head">
       <span class="kicker">测出来的，不是说出来的</span>
       <h2>来自基准 harness 的数字</h2>
-      <p class="lede">每个数字来自仓内基准 harness 与同机真 <code>git http-backend</code> 的对照——合成种子管结构、真实仓（go-git、git.git）管历史——或来自带内存限制的集成测试。完整报告：
+      <p class="lede">与同机真 <code>git http-backend</code> 对照实测——旗舰车道直接跑在 git.git 上。完整报告：
       <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a–§3b</a>。</p>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">1.13×</div>
-        <p>全量克隆字节 vs git http-backend——直接在 git.git 上实测（8.5 万提交、2031 refs；warm 耗时持平，单包 verbatim 直传、零枚举）</p></div>
+        <p>git.git 上全量克隆字节 vs git——warm 耗时持平</p></div>
       <div class="stat"><div class="num">0.61×</div>
-        <p>同仓浅克隆耗时（字节 1.08×）</p></div>
+        <p>同仓浅克隆耗时</p></div>
       <div class="stat"><div class="num">0.99×</div>
-        <p>git.git 的 2,031 refs 广告字节</p></div>
+        <p>2,031 条 refs 的广告字节</p></div>
       <div class="stat"><div class="num">35<small>%</small></div>
-        <p>子树克隆字节 vs 全量克隆（真实 4K 提交仓实测；git 无对应能力）</p></div>
+        <p>子树克隆字节 vs 全量克隆——git 没有的形态</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
-        <p>64MiB 软限制下服务 72MiB 三 pack clone 的峰值堆</p></div>
+        <p>64MiB 软限下服务 72MiB 克隆的峰值堆</p></div>
       <div class="stat"><div class="num">109</div>
-        <p>12 个子包里的集成测试函数，真 git CLI 作客户端</p></div>
+        <p>集成测试函数，真 git CLI 作客户端</p></div>
     </div>
   </div>
 </section>
