@@ -157,13 +157,15 @@
         no plugins — including partial clone, shallow, thin packs and
         filtered fetches. 109 integration cases pin this with real git.</p></div>
       <div class="card"><h3><span class="glyph">▤</span>Bounded-memory serving</h3>
-        <p>Clone-shaped fetches stream: exact-pack fast path, then a
-        delta-free streaming encoder that never holds the closure. A 72 MiB
-        three-pack clone completes under a 64 MiB soft limit at 12.3 MiB peak.</p></div>
+        <p>Clone-shaped fetches stream: exact- and superset-pack fast paths,
+        then a delta-free streaming encoder that never holds the closure. A
+        72 MiB three-pack clone completes under a 64 MiB soft limit at
+        12.3 MiB peak.</p></div>
       <div class="card"><h3><span class="glyph">⇉</span>Convergence merge train</h3>
         <p>Same-directory pushes serialize on a per-timeline queue and
         converge server-side (a pure-Go merge-ort subset). Eight concurrent
-        writers finish in 0.52× git's wall time — no rebase loops.</p></div>
+        writers land in one pass — no client-side rebase loops, no
+        force-push cascades.</p></div>
       <div class="card"><h3><span class="glyph">⬢</span>HA by construction</h3>
         <p>A refs service, scattered pack storage with R replicas, stateless
         gateways. Kill a storage node and reads and writes keep going while
@@ -205,21 +207,22 @@
       <span class="kicker">Measured, not claimed</span>
       <h2>Numbers from the benchmark harness</h2>
       <p class="lede">Every figure comes from the in-repo benchmark harness
-      against a real <code>git http-backend</code> on the same machine, or
-      from a memory-constrained integration test. Reports:
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a</a>.</p>
+      against a real <code>git http-backend</code> on the same machine —
+      synthetic profiles for structure, real repositories (go-git, git.git)
+      for history — or from memory-constrained integration tests. Reports:
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a–§3b</a>.</p>
     </div>
     <div class="stats">
+      <div class="stat"><div class="num">0.54×</div>
+        <p>shallow-clone wall time vs git http-backend, measured on git.git itself (85K commits, 2,031 refs; 1.08× bytes)</p></div>
+      <div class="stat"><div class="num">1.16×</div>
+        <p>full-clone bytes on a real 4K-commit repository; warm clones run at 0.50× git's wall time</p></div>
+      <div class="stat"><div class="num">1.01×</div>
+        <p>advertisement bytes for git.git's 2,031 refs plus ~30 subtree projections</p></div>
+      <div class="stat"><div class="num">35<small>%</small></div>
+        <p>subtree-clone bytes vs the full clone of the same real repository — git has no counterpart</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
         <p>peak heap serving a 72 MiB three-pack clone under a 64 MiB soft limit</p></div>
-      <div class="stat"><div class="num">0.87×</div>
-        <p>incremental-fetch bytes vs real git http-backend (true thin packs)</p></div>
-      <div class="stat"><div class="num">5.9<small>–29%</small></div>
-        <p>subtree-clone bytes relative to a full clone, across repo sizes</p></div>
-      <div class="stat"><div class="num">0.52×</div>
-        <p>wall time for eight concurrent writers vs git's pull-rebase loops</p></div>
-      <div class="stat"><div class="num">13.5<small> MiB</small></div>
-        <p>peak pushing a 150 MiB repo with three replicas across the cluster</p></div>
       <div class="stat"><div class="num">109</div>
         <p>integration test functions in 12 sub-packages, the real git CLI as the client</p></div>
     </div>

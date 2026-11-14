@@ -126,9 +126,9 @@
       <div class="card"><h3><span class="glyph">⇄</span>协议完备的 git 边界</h3>
         <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。109 个集成测试函数以真 git 钉住。</p></div>
       <div class="card"><h3><span class="glyph">▤</span>有界内存服务</h3>
-        <p>clone 形态的抓取全部流式化：精确命中整包直传，未命中走无 delta 流式编码器——闭包永不驻留。72MiB 三 pack 仓在 64MiB 软限制下 clone，峰值 12.3MiB。</p></div>
+        <p>clone 形态的抓取全部流式化：精确命中/超集命中整包直传，未命中走无 delta 流式编码器——闭包永不驻留。72MiB 三 pack 仓在 64MiB 软限制下 clone，峰值 12.3MiB。</p></div>
       <div class="card"><h3><span class="glyph">⇉</span>收敛列车</h3>
-        <p>同目录推送在时间线队列串行、服务端收敛（纯 Go merge-ort 子集）。8 个并发写者耗时 0.52× git——没有 rebase 循环。</p></div>
+        <p>同目录推送在时间线队列串行、服务端收敛（纯 Go merge-ort 子集）。8 个并发写者一次落定——没有客户端 rebase 循环，没有 force-push 级联。</p></div>
       <div class="card"><h3><span class="glyph">⬢</span>构造性 HA</h3>
         <p>refs 服务 + 散布 pack 存储（R 副本）+ 无状态网关。杀掉一个存储节点，读写照常，reconciler 自动补副本——全链路实测。</p></div>
       <div class="card"><h3><span class="glyph">⚿</span>治理内建</h3>
@@ -159,20 +159,20 @@
     <div class="section-head">
       <span class="kicker">测出来的，不是说出来的</span>
       <h2>来自基准 harness 的数字</h2>
-      <p class="lede">每个数字来自仓内基准 harness 与同机真 <code>git http-backend</code> 的对照，或来自带内存限制的集成测试。完整报告：
-      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a</a>。</p>
+      <p class="lede">每个数字来自仓内基准 harness 与同机真 <code>git http-backend</code> 的对照——合成种子管结构、真实仓（go-git、git.git）管历史——或来自带内存限制的集成测试。完整报告：
+      <a href="https://github.com/banyan-vcs/banyan/blob/main/docs/operations/performance.md">docs/operations/performance.md §3a–§3b</a>。</p>
     </div>
     <div class="stats">
+      <div class="stat"><div class="num">0.54×</div>
+        <p>浅克隆耗时 vs git http-backend——直接在 git.git 上实测（8.5 万提交、2031 refs；字节 1.08×）</p></div>
+      <div class="stat"><div class="num">1.16×</div>
+        <p>真实仓（4K 提交）全量克隆字节；warm 克隆耗时 0.50× 反超 git</p></div>
+      <div class="stat"><div class="num">1.01×</div>
+        <p>git.git 的 2,031 refs + ~30 子树投影的广告字节</p></div>
+      <div class="stat"><div class="num">35<small>%</small></div>
+        <p>子树克隆字节 vs 同仓全量克隆（真实仓实测；git 无对应能力）</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
         <p>64MiB 软限制下服务 72MiB 三 pack clone 的峰值堆</p></div>
-      <div class="stat"><div class="num">0.87×</div>
-        <p>增量 fetch 字节 vs 真 git http-backend（真 thin pack）</p></div>
-      <div class="stat"><div class="num">5.9<small>–29%</small></div>
-        <p>子树 clone 字节相对全量 clone（跨仓库规模）</p></div>
-      <div class="stat"><div class="num">0.52×</div>
-        <p>8 并发写者耗时 vs git 的 pull-rebase 循环</p></div>
-      <div class="stat"><div class="num">13.5<small> MiB</small></div>
-        <p>150MiB 仓 ×3 副本全集群链路 push 的峰值</p></div>
       <div class="stat"><div class="num">109</div>
         <p>12 个子包里的集成测试函数，真 git CLI 作客户端</p></div>
     </div>
