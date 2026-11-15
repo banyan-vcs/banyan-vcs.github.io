@@ -104,25 +104,25 @@
       answers follow from them.</p>
     </div>
     <div class="steps">
-      <div class="card"><h3>Git is the inescapable standard</h3>
-        <p>Two decades deep, from personal projects to the largest enterprises.
-        Any credible answer must not ask anyone to leave git.</p></div>
-      <div class="card"><h3>Huge-repo hosting is git's weak spot</h3>
-        <p>Android-scale monorepos hit its limits: tens of GB, millions of
-        objects, hour-long clones. Shallow and partial clone treat symptoms,
-        not the assumption underneath.</p></div>
-      <div class="card"><h3>Monorepo is where maintenance is heading</h3>
-        <p>On modern build systems, source dependency keeps code alive:
-        atomic cross-package changes, no release lag, one commit coordinating
-        many parties.</p></div>
+      <div class="card"><h3>Git is the standard</h3>
+        <p>Two decades deep, from personal projects to the largest
+        enterprises. Banyan never asks anyone to leave git; it replaces the
+        storage server behind the protocol.</p></div>
+      <div class="card"><h3>Huge repos sit poorly on git</h3>
+        <p>Android-scale monorepos: tens of GB, millions of objects,
+        hour-long clones. Shallow and partial clone treat symptoms; the
+        "reachable means cloned" assumption stays.</p></div>
+      <div class="card"><h3>Monorepos keep growing</h3>
+        <p>On modern build systems (Bazel / Buck), source dependency keeps
+        code alive: atomic cross-package changes, no release lag.</p></div>
       <div class="card"><h3>Directory permissions become structural</h3>
-        <p>Departmental boundaries, compliance isolation, vendor visibility —
-        native git cannot express them; splitting into many repos destroys
-        what a monorepo exists to provide.</p></div>
-      <div class="card"><h3>AI agents multiply collisions</h3>
-        <p>Collaboration frequency moves from human-days to agent-minutes,
-        amplifying centralized-ref bottlenecks: push locks, full negotiation,
-        force-push and rebase cascades.</p></div>
+        <p>Departmental boundaries, compliance isolation, vendor visibility.
+        Git's model stops at repo granularity; splitting into separate repos
+        destroys what a monorepo is for.</p></div>
+      <div class="card"><h3>AI agents raise the tempo</h3>
+        <p>Collaboration moves from human-days to agent-minutes, straining
+        git's centralized-ref model: push locks, full negotiation,
+        force-push cascades.</p></div>
     </div>
     <div class="grid pillars" style="margin-top:34px">
       <div class="card"><h3>Distributed by construction</h3>
@@ -133,12 +133,11 @@
       <div class="card"><h3>Directory-anchored timelines</h3>
         <p>Every directory owns its commit history. Any subtree is a repo,
         transfers are O(subtree), directories never lock each other — and a
-        permission boundary is simply a timeline boundary. Native
-        capability, not an add-on.</p></div>
+        permission boundary is simply a timeline boundary.</p></div>
     </div>
     <p style="margin-top:26px;max-width:46em;color:var(--ink-soft)">
-      <strong style="color:var(--ink)">The vision:</strong> code storage as an
-      independent infrastructure layer — any platform, any client, any scale.</p>
+      Long term: code storage as an independent infrastructure layer — any
+      platform, any client, any scale.</p>
   </div>
 </section>
 
@@ -157,7 +156,7 @@
       <div class="card"><h3><span class="glyph">⇄</span>Protocol-complete git boundary</h3>
         <p>Smart HTTP v0/v1/v2 and git-over-SSH. The plain git CLI works with
         no plugins — including partial clone, shallow, thin packs and
-        filtered fetches. 109 integration cases pin this with real git.</p></div>
+        filtered fetches. 113 integration cases pin this with real git.</p></div>
       <div class="card"><h3><span class="glyph">▤</span>Bounded-memory serving</h3>
         <p>Clone-shaped fetches stream: exact- and superset-pack fast paths,
         then a delta-free streaming encoder that never holds the closure. A
@@ -223,7 +222,7 @@
         <p>subtree-clone bytes vs the full clone — a shape git does not have</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
         <p>peak heap serving a 72 MiB clone under a 64 MiB soft limit</p></div>
-      <div class="stat"><div class="num">109</div>
+      <div class="stat"><div class="num">113</div>
         <p>integration test functions, the real git CLI as the client</p></div>
     </div>
   </div>

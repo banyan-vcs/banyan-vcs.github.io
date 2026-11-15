@@ -94,25 +94,25 @@
       <p class="lede">五个观察决定了设计，两个结构性答案随之而来。</p>
     </div>
     <div class="steps">
-      <div class="card"><h3>git 是绕不开的行业标准</h3>
-        <p>二十年深耕，从个人项目到最大的企业。任何可信的方案都不能要求任何人离开 git。</p></div>
-      <div class="card"><h3>大仓托管是 git 的短板</h3>
-        <p>Android 级 monorepo 撞上它的极限：几十 GB、数百万对象、小时级 clone。浅化/稀疏/部分克隆治标不治本。</p></div>
-      <div class="card"><h3>monorepo 是代码维护的去向</h3>
-        <p>现代构建系统上，源码依赖是让代码保持存活的最优方式：跨包原子变更、零发布延迟、一次提交协调多方。</p></div>
-      <div class="card"><h3>目录级权限成为结构性需求</h3>
-        <p>部门边界、合规隔离、供应商可见性——原生 git 无法表达；按目录拆仓则摧毁了 monorepo 本来要提供的东西。</p></div>
-      <div class="card"><h3>AI Agent 放大冲突频率</h3>
-        <p>协作频率从人类的天级走向 agent 的分钟级，中心化 ref 的瓶颈被放大：推送锁、全量协商、force-push 与 rebase 级联。</p></div>
+      <div class="card"><h3>git 是行业标准</h3>
+        <p>二十年深耕，从个人项目到最大的企业。banyan 不要求任何人离开 git——替换的是协议背后的存储服务端。</p></div>
+      <div class="card"><h3>大仓在 git 上不好过</h3>
+        <p>Android 级 monorepo：几十 GB、数百万对象、小时级 clone。浅化/稀疏/部分克隆只治症状，"可达即全量"的假设未变。</p></div>
+      <div class="card"><h3>monorepo 持续增长</h3>
+        <p>现代构建系统（Bazel / Buck）上，源码依赖让代码保持存活：跨包原子变更、零发布延迟。</p></div>
+      <div class="card"><h3>目录级权限成为结构需求</h3>
+        <p>部门边界、合规隔离、供应商可见性。git 权限止步于仓库粒度；按目录拆仓摧毁了 monorepo 本来要提供的东西。</p></div>
+      <div class="card"><h3>AI Agent 推快节奏</h3>
+        <p>协作从"人天级"走向"Agent 分钟级"，git 集中式 ref 模型被拉紧：push 锁、全量协商、force-push 级联。</p></div>
     </div>
     <div class="grid pillars" style="margin-top:34px">
       <div class="card"><h3>分布式是构造性的</h3>
         <p>pack CAS 分片 + 小体量元数据面：存储横向扩展、不绑定单机。代码——企业的核心资产——获得数据库级的可靠性，而不是一块单盘的可靠性。</p></div>
       <div class="card"><h3>目录锚定时间线</h3>
-        <p>每个目录拥有自己的提交历史。任何子树都是仓库、传输 O(子目录)、目录之间零锁竞争——权限边界就是时间线边界。原生能力，而非外挂。</p></div>
+        <p>每个目录拥有自己的提交历史。任何子树都是仓库、传输 O(子目录)、目录之间零锁竞争——权限边界就是时间线边界。</p></div>
     </div>
     <p style="margin-top:26px;max-width:46em;color:var(--ink-soft)">
-      <strong style="color:var(--ink)">远景：</strong>代码存储成为独立的基础设施层——任何平台、任何客户端、任何规模。</p>
+      长远：代码存储成为独立的基础设施层——任何平台、任何客户端、任何规模。</p>
   </div>
 </section>
 
@@ -126,7 +126,7 @@
       <div class="card"><h3><span class="glyph">⑂</span>任何子树都是仓库</h3>
         <p><code>/r/demo.git/tree/frameworks/base</code> 是一等公民的 clone URL——从 Android 规模的大仓里只取一个项目。目录时间线构造性地小；跨目录推送零竞争，根视图读取时织入。</p></div>
       <div class="card"><h3><span class="glyph">⇄</span>协议完备的 git 边界</h3>
-        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。109 个集成测试函数以真 git 钉住。</p></div>
+        <p>Smart HTTP v0/v1/v2 与 git-over-SSH。原生 git CLI 零插件可用——含 partial clone、浅化、thin pack、过滤抓取。113 个集成测试函数以真 git 钉住。</p></div>
       <div class="card"><h3><span class="glyph">▤</span>有界内存服务</h3>
         <p>clone 形态的抓取全部流式化：精确命中/超集命中整包直传，未命中走无 delta 流式编码器——闭包永不驻留。72MiB 三 pack 仓在 64MiB 软限制下 clone，峰值 12.3MiB。</p></div>
       <div class="card"><h3><span class="glyph">⇉</span>收敛列车</h3>
@@ -175,7 +175,7 @@
         <p>子树克隆字节 vs 全量克隆——git 没有的形态</p></div>
       <div class="stat"><div class="num">12.3<small> MiB</small></div>
         <p>64MiB 软限下服务 72MiB 克隆的峰值堆</p></div>
-      <div class="stat"><div class="num">109</div>
+      <div class="stat"><div class="num">113</div>
         <p>集成测试函数，真 git CLI 作客户端</p></div>
     </div>
   </div>
