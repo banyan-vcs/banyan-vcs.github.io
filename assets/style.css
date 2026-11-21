@@ -26,7 +26,7 @@
     --accent: #fcd854;
     --accent-ink: #fde17b;
     --on-accent: #14140f;
-    --accent-soft: #2d280c;
+    --accent-soft: #1d1d20;
     --root: #a1a1aa;
     --code-bg: #0a0a0b;
     --code-ink: #d4d4d8;
@@ -93,7 +93,7 @@ p.lede {
   max-width: 46em;
 }
 a {
-  color: var(--accent);
+  color: var(--ink);
   text-decoration: none;
 }
 a:hover {
@@ -170,7 +170,7 @@ nav.main a:hover {
 }
 .lang b {
   padding: 0 6px;
-  color: var(--accent);
+  color: var(--ink);
 }
 /* ---------- hero ---------- */
 .hero {
@@ -289,7 +289,7 @@ nav.main a:hover {
   border-radius: 8px;
 }
 .pillars .card {
-  border-top: 3px solid var(--accent);
+  border-top: 3px solid var(--ink);
 }
 /* ---------- stats ---------- */
 .stats {
@@ -304,7 +304,7 @@ nav.main a:hover {
   font-family: "Iowan Old Style", Palatino, Georgia, serif;
   font-size: clamp(30px, 4vw, 42px);
   font-weight: 650;
-  color: var(--accent);
+  color: var(--ink);
   line-height: 1.05;
 }
 .stat .num small {
@@ -333,7 +333,7 @@ pre .c {
 code {
   font: 0.92em ui-monospace, "Cascadia Code", Consolas, monospace;
   background: var(--accent-soft);
-  color: var(--accent-ink);
+  color: var(--ink);
   border-radius: 5px;
   padding: 1px 6px;
 }
@@ -382,7 +382,7 @@ figure.arch figcaption {
 }
 .doclist .no {
   font: 600 13px/1.7 ui-monospace, Consolas, monospace;
-  color: var(--accent);
+  color: var(--ink);
   white-space: nowrap;
 }
 .doclist .no span {
@@ -394,7 +394,7 @@ figure.arch figcaption {
   color: var(--ink);
 }
 .doclist a.title:hover {
-  color: var(--accent);
+  text-decoration: underline;
 }
 .doclist p {
   margin: 2px 0 0;
@@ -415,7 +415,7 @@ figure.arch figcaption {
   box-shadow: var(--shadow);
 }
 .license-card.core {
-  border-top: 3px solid var(--accent);
+  border-top: 3px solid var(--ink);
 }
 .license-card.ee {
   border-top: 3px solid var(--line);
@@ -467,7 +467,7 @@ footer.site nav {
 .lost .num {
   font-family: "Iowan Old Style", Palatino, Georgia, serif;
   font-size: 96px;
-  color: var(--accent);
+  color: var(--ink);
   line-height: 1;
 }
 .lost p {
