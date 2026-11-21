@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>banyan — a git-compatible version control server</title>
+    <script>
+      // Pre-paint theme: apply the stored manual choice before first paint
+      // (assets/theme.js owns the toggle wiring).
+      (function () {
+        try {
+          var t = localStorage.getItem("banyan.theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
 <meta name="description" content="Banyan is a git-compatible VCS server: every client stays real git, while directory-anchored timelines, distributed pack storage, bounded-memory serving and a three-tier web/gateway/storage console rebuild the server side for huge monorepos.">
 <meta property="og:title" content="banyan — a git-compatible version control server">
 <meta property="og:description" content="One tree, a forest of timelines. Directory-anchored version control with the git protocol as its boundary.">
@@ -27,6 +37,7 @@
       <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
     </nav>
     <span class="lang"><b>EN</b><a href="zh-cn/" lang="zh-CN" data-lang="zh">中文</a></span>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="theme"></button>
   </div>
 </header>
 
@@ -311,5 +322,6 @@ git push banyan main   <span class="c"># first push auto-creates</span></code></
   </div>
 </footer>
 
+    <script src="assets/theme.js" defer></script>
 </body>
 </html>

@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>404 — banyan</title>
+    <script>
+      // Pre-paint theme: apply the stored manual choice before first paint
+      // (assets/theme.js owns the toggle wiring).
+      (function () {
+        try {
+          var t = localStorage.getItem("banyan.theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
 <link rel="icon" href="assets/avatar.png" type="image/png">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -17,6 +27,7 @@
       <a href="docs.html">Docs</a>
       <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
     </nav>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="theme" style="margin-left:auto"></button>
   </div>
 </header>
 
@@ -29,5 +40,6 @@
   </div>
 </section>
 
+    <script src="assets/theme.js" defer></script>
 </body>
 </html>

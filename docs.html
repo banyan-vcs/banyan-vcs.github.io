@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Documentation — banyan</title>
+    <script>
+      // Pre-paint theme: apply the stored manual choice before first paint
+      // (assets/theme.js owns the toggle wiring).
+      (function () {
+        try {
+          var t = localStorage.getItem("banyan.theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
 <meta name="description" content="The banyan documentation set: design, storage, gateway, web tier, client, integration and operations — twenty documents in the main repository.">
 <link rel="icon" href="assets/avatar.png" type="image/png">
 <link rel="stylesheet" href="assets/style.css">
@@ -22,6 +32,7 @@
       <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
     </nav>
     <span class="lang"><b>EN</b><a href="zh-cn/docs.html" lang="zh-CN" data-lang="zh">中文</a></span>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="theme"></button>
   </div>
 </header>
 
@@ -121,5 +132,6 @@
   </div>
 </footer>
 
+    <script src="assets/theme.js" defer></script>
 </body>
 </html>

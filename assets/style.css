@@ -14,7 +14,11 @@
   --code-ink: #e4e4e7;
   --code-cmt: #71717a;
   --shadow: 0 1px 2px rgba(24, 24, 27, 0.05), 0 10px 30px rgba(24, 24, 27, 0.07);
+  color-scheme: light;
 }
+/* ---- automatic dark mode, and the manual override (the header toggle):
+   auto → light → dark; a forced scheme rides html[data-theme], which
+   outranks the media query by specificity */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #121210;
@@ -34,6 +38,42 @@
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.45);
     color-scheme: dark;
   }
+}
+html[data-theme="light"] {
+  --bg: #fafafa;
+  --bg-soft: #f4f4f5;
+  --card: #ffffff;
+  --ink: #18181b;
+  --ink-soft: #52525b;
+  --line: #e4e4e7;
+  --accent: #18181b;
+  --accent-ink: #000000;
+  --on-accent: #ffffff;
+  --accent-soft: #f4f4f5;
+  --root: #71717a;
+  --code-bg: #111113;
+  --code-ink: #e4e4e7;
+  --code-cmt: #71717a;
+  --shadow: 0 1px 2px rgba(24, 24, 27, 0.05), 0 10px 30px rgba(24, 24, 27, 0.07);
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  --bg: #121210;
+  --bg-soft: #1a1a16;
+  --card: #1c1c18;
+  --ink: #edede8;
+  --ink-soft: #a8a89f;
+  --line: #2c2c26;
+  --accent: #fcd854;
+  --accent-ink: #fde17b;
+  --on-accent: #14140f;
+  --accent-soft: #1d1d20;
+  --root: #a1a1aa;
+  --code-bg: #0a0a0b;
+  --code-ink: #d4d4d8;
+  --code-cmt: #71717a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
 }
 * {
   box-sizing: border-box;
@@ -233,6 +273,29 @@ nav.main a:hover {
 }
 .btn.ghost:hover {
   border-color: var(--accent);
+}
+/* the theme toggle in the header: an icon-only ghost button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+}
+.theme-toggle:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+.theme-toggle svg {
+  width: 15px;
+  height: 15px;
 }
 /* ---------- cards ---------- */
 .grid {

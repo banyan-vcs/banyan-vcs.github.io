@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>banyan — git 兼容的版本控制服务端</title>
+    <script>
+      // Pre-paint theme: apply the stored manual choice before first paint
+      // (assets/theme.js owns the toggle wiring).
+      (function () {
+        try {
+          var t = localStorage.getItem("banyan.theme");
+          if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
 <meta name="description" content="Banyan 是 git 兼容的版本控制服务端：客户端始终是真正的 git，服务端则为大仓重塑——目录锚定时间线、分布式 pack 存储、有界内存服务，以及 web / gateway / 存储三层控制台。">
 <meta property="og:title" content="banyan — git 兼容的版本控制服务端">
 <meta property="og:description" content="独木成林——每个目录都有自己的时间线。以 git 协议为边界的版本控制服务端。">
@@ -27,6 +37,7 @@
       <a href="https://github.com/banyan-vcs/banyan">GitHub</a>
     </nav>
     <span class="lang"><a href="../" lang="en" data-lang="en">EN</a><b>中文</b></span>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="theme"></button>
   </div>
 </header>
 
@@ -256,5 +267,6 @@ git push banyan main   <span class="c"># 首推自动建仓</span></code></pre>
   </div>
 </footer>
 
+    <script src="../assets/theme.js" defer></script>
 </body>
 </html>

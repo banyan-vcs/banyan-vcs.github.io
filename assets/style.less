@@ -33,7 +33,7 @@
 @d-accent-soft: #1d1d20; // neutral selection wash — yellow lives on controls only
 @d-root: #a1a1aa;
 
-:root {
+.light-tokens() {
   --bg: @l-bg;
   --bg-soft: @l-bg-soft;
   --card: @l-card;
@@ -48,28 +48,46 @@
   --code-bg: #111113;
   --code-ink: #e4e4e7;
   --code-cmt: #71717a;
-  --shadow: 0 1px 2px rgba(24, 24, 27, 0.05), 0 10px 30px rgba(24, 24, 27, 0.07);
+   --shadow: 0 1px 2px rgba(24, 24, 27, 0.05), 0 10px 30px rgba(24, 24, 27, 0.07);
+  color-scheme: light;
 }
 
+.dark-tokens() {
+    --bg: @d-bg;
+  --bg-soft: @d-bg-soft;
+  --card: @d-card;
+  --ink: @d-ink;
+  --ink-soft: @d-ink-soft;
+  --line: @d-line;
+  --accent: @d-accent;
+  --accent-ink: @d-accent-ink;
+  --on-accent: @d-on-accent;
+  --accent-soft: @d-accent-soft;
+  --root: @d-root;
+  --code-bg: #0a0a0b;
+  --code-ink: #d4d4d8;
+  --code-cmt: #71717a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+  }
+
+:root {
+  .light-tokens();
+}
+
+/* ---- automatic dark mode, and the manual override (the header toggle):
+   auto → light → dark; a forced scheme rides html[data-theme], which
+   outranks the media query by specificity */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: @d-bg;
-    --bg-soft: @d-bg-soft;
-    --card: @d-card;
-    --ink: @d-ink;
-    --ink-soft: @d-ink-soft;
-    --line: @d-line;
-    --accent: @d-accent;
-    --accent-ink: @d-accent-ink;
-    --on-accent: @d-on-accent;
-    --accent-soft: @d-accent-soft;
-    --root: @d-root;
-    --code-bg: #0a0a0b;
-    --code-ink: #d4d4d8;
-    --code-cmt: #71717a;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.45);
-    color-scheme: dark;
+    .dark-tokens();
   }
+}
+html[data-theme="light"] {
+  .light-tokens();
+}
+html[data-theme="dark"] {
+  .dark-tokens();
 }
 
 * { box-sizing: border-box; }
@@ -195,6 +213,25 @@ nav.main a:hover { color: var(--ink); background: var(--accent-soft); text-decor
 .btn.primary:hover { background: var(--accent-ink); }
 .btn.ghost { border-color: var(--line); color: var(--ink); background: var(--card); }
 .btn.ghost:hover { border-color: var(--accent); }
+
+
+/* the theme toggle in the header: an icon-only ghost button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+.theme-toggle svg { width: 15px; height: 15px; }
 
 /* ---------- cards ---------- */
 
